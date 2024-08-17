@@ -10,7 +10,7 @@ website:
       - about.qmd
       - text: Hands-On Excersises
         menu:
-         - text: "1"
+         - text: "1 "
          - href: "Hands-On/1.qmd"
 format:
   html:
