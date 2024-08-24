@@ -1,0 +1,12 @@
+---
+title: "In-class 1"
+author: "Lucas Vial"
+date: "Aug 19 2024"
+date-modified: "Date"
+execute: 
+  eval: true
+  echo: true
+  freeze: true
+---
+
+Setting up RStudio and Making sure we aren't uploading data files to github, Introduction to Quarto
