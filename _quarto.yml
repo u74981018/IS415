@@ -10,10 +10,10 @@ website:
       - about.qmd
       - text: Hands-On
         menu:
-         - text: "1"
-           href: "Hands-On/1.qmd"
-         - text: "2"
-           href: "Hands-On/2.qmd"
+          - text: "1"
+            href: "Hands-On/1.qmd"
+          - text: "2"
+            href: "Hands-On/2.qmd"
       - text: In-Class
        menu: 
         - text: "1 "
