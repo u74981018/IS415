@@ -1,12 +1,89 @@
 ---
-title: "In-class 1"
+title: "In-class 2"
 author: "Lucas Vial"
-date: "Aug 19 2024"
+date: "Aug 26 2024"
 date-modified: "Date"
 execute: 
   eval: true
   echo: true
   freeze: true
+  warning: false
 ---
 
-Setting up RStudio and Making sure we aren't uploading data files to github, Introduction to Quarto
+Load Packages
+
+```{r}
+pacman::p_load(sf, tmap, tidyverse)
+```
+
+Import the shape files
+
+```{r}
+mpsz <- st_read(dsn = "data/2data", 
+                layer = "MP14_SUBZONE_WEB_PL")
+```
+
+Simple features walkthrough
+
+tangent on installing libraries
+
+```{r}
+#mpsz_kml <- st_read("data/2data/MasterPlan2014SubzoneBoundaryWebKML.kml")
+#this does not work 
+```
+
+write the shapefile into a kml file
+
+```{r}
+st_write(mpsz, "data/2data/MasterPlan2014.kml", delete_dsn = TRUE)
+# st_write(object, src)
+# delete dsn = delete existing 
+```
+
+2019 No Sea Subzone Boundary Data
+
+KML
+
+```{r}
+kml2019 <- st_read("data/2data/MasterPlan2019SubzoneBoundaryNoSeaKML.kml")
+```
+
+Geo JSON file
+
+```{r}
+gjson2019 <- st_read("data/2data/MasterPlan2019SubzoneBoundaryNoSeaGEOJSON.geojson") #%>%
+ # st_transform(crs = 3414)
+```
+
+Use projective maps for geospatial data analysis, avoid using geographical systems, we don't need perfect (real-world) accuracy
+
+Check values to see if its in projected degrees? or geographical degrees
+
+```{r}
+#mpsz19_shp <- st_read(dsn = "data/2data/", layer = "MPSV-2019") 
+```
+
+I don't have shapefile files :(
+
+```{r}
+#popdata <- read_csv("data/2data/respopagesexfa2023.csv")
+popdata <- read_csv("data/2data/respopagesex2023.csv")
+```
+
+```{r}
+#popdata2023 <- data %>%
+#  group_by(PA, SZ, AG) %>%
+#  summarise(`POP`=sum(`Pop`)) %>%
+#  ungroup() %>%
+#  pivot_wider(names_from = AG,
+#              values_from = POP)
+#colnames(popdata2023)
+```
+
+Data Processing
+
+lots of code sorting into columns/rows
+
+Make all chars upper case via mutate
+
+left join on the spatial data and this data c Subzone = SZ
