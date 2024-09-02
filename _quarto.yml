@@ -22,6 +22,8 @@ website:
           href: "inclass/ic1.html"
         - text: "2"
           href: "inclass/ic2.html"
+        - text: "3"
+          href: "inclass/ic3.html"
 format:
   html:
     theme: cosmo

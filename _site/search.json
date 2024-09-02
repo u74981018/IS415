@@ -250,5 +250,26 @@
     "title": "In-class 1",
     "section": "",
     "text": "Setting up RStudio and Making sure we aren’t uploading data files to github, Introduction to Quarto"
+  },
+  {
+    "objectID": "inclass/ic3.html",
+    "href": "inclass/ic3.html",
+    "title": "In-class 3",
+    "section": "",
+    "text": "Installing maptools - Old version because we are using outdated software\n\ninstall.packages(\"maptools\", repos = \"https://packagemanager.posit.co/cran/2023-10-13\")\n\nsf &gt; sp\nIssue 2: Creating coastal outline\n\nmpsz_sf &lt;- st_read(dsn = \"../Hands-On/data/data_3/data/\", \n                layer = \"MP14_SUBZONE_WEB_PL\")\nchildcare_sf &lt;- st_read(\"../Hands-On/data/data_3/data/child-care-services-geojson.geojson\") %&gt;%\n  st_transform(crs = 3414)\n\n\nsg_sf &lt;- mpsz_sf %&gt;%\n  st_union()\n\nList of different sub-packages for spat stat (looked at geom)\ncreate a point pattern: ppp(x, y, owin)\nas.ppp convert data to ppp (this one is more important)\nas.owin convert data to owin (window or the squares that make up grids)\nadd maptools:: to the start of as.SpatitalGridDataFrame to fix it! -&gt; or you could just do it properly like I did"
+  },
+  {
+    "objectID": "inclass/ic3.html#spatial-point-patterns-analysis",
+    "href": "inclass/ic3.html#spatial-point-patterns-analysis",
+    "title": "In-class 3",
+    "section": "",
+    "text": "Installing maptools - Old version because we are using outdated software\n\ninstall.packages(\"maptools\", repos = \"https://packagemanager.posit.co/cran/2023-10-13\")\n\nsf &gt; sp\nIssue 2: Creating coastal outline\n\nmpsz_sf &lt;- st_read(dsn = \"../Hands-On/data/data_3/data/\", \n                layer = \"MP14_SUBZONE_WEB_PL\")\nchildcare_sf &lt;- st_read(\"../Hands-On/data/data_3/data/child-care-services-geojson.geojson\") %&gt;%\n  st_transform(crs = 3414)\n\n\nsg_sf &lt;- mpsz_sf %&gt;%\n  st_union()\n\nList of different sub-packages for spat stat (looked at geom)\ncreate a point pattern: ppp(x, y, owin)\nas.ppp convert data to ppp (this one is more important)\nas.owin convert data to owin (window or the squares that make up grids)\nadd maptools:: to the start of as.SpatitalGridDataFrame to fix it! -&gt; or you could just do it properly like I did"
+  },
+  {
+    "objectID": "inclass/ic3.html#take-home-code-example",
+    "href": "inclass/ic3.html#take-home-code-example",
+    "title": "In-class 3",
+    "section": "Take home code example",
+    "text": "Take home code example\nacled_sf &lt;- read.csv() %&gt;%\nst_as_sf(coords = c(“longitude”, “latitude”), crs=4326) %&gt;%\nst_transform(crs = 32647) %&gt;%\nmutate(event)data = dmy(event_date))"
   }
 ]

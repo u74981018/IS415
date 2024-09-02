@@ -1,0 +1,15 @@
+{
+  "hash": "4f72340f028a1b3f38c29375ae7a6bdd",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"In-class 3\"\nauthor: \"Lucas Vial\"\ndate: \"Sep 2 2024\"\ndate-modified: \"Date\"\nexecute: \n  eval: false\n  echo: true\n  freeze: true\n  warning: false\n---\n\n\n## Spatial Point Patterns Analysis \n\n### SpatStat\n\nInstalling maptools - Old version because we are using outdated software\n\n\n::: {.cell}\n\n```{.r .cell-code}\ninstall.packages(\"maptools\", repos = \"https://packagemanager.posit.co/cran/2023-10-13\")\n```\n:::\n\n\nsf \\> sp\n\nIssue 2: Creating coastal outline\n\n\n::: {.cell}\n\n```{.r .cell-code}\nmpsz_sf <- st_read(dsn = \"../Hands-On/data/data_3/data/\", \n                layer = \"MP14_SUBZONE_WEB_PL\")\nchildcare_sf <- st_read(\"../Hands-On/data/data_3/data/child-care-services-geojson.geojson\") %>%\n  st_transform(crs = 3414)\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nsg_sf <- mpsz_sf %>%\n  st_union()\n```\n:::\n\n\nList of different sub-packages for spat stat (looked at geom)\n\ncreate a point pattern: ppp(x, y, owin)\n\nas.ppp convert data to ppp (this one is more important)\n\nas.owin convert data to owin (window or the squares that make up grids)\n\nadd maptools:: to the start of as.SpatitalGridDataFrame to fix it! -\\> or you could just do it properly like I did\n\n## Take home code example\n\nacled_sf \\<- read.csv() %\\>%\n\nst_as_sf(coords = c(\"longitude\", \"latitude\"), crs=4326) %\\>%\n\nst_transform(crs = 32647) %\\>%\n\nmutate(event)data = dmy(event_date))\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -1,0 +1,57 @@
+---
+title: "In-class 3"
+author: "Lucas Vial"
+date: "Sep 2 2024"
+date-modified: "Date"
+execute: 
+  eval: false
+  echo: true
+  freeze: true
+  warning: false
+---
+
+## Spatial Point Patterns Analysis 
+
+### SpatStat
+
+Installing maptools - Old version because we are using outdated software
+
+```{r}
+install.packages("maptools", repos = "https://packagemanager.posit.co/cran/2023-10-13")
+```
+
+sf \> sp
+
+Issue 2: Creating coastal outline
+
+```{r}
+mpsz_sf <- st_read(dsn = "../Hands-On/data/data_3/data/", 
+                layer = "MP14_SUBZONE_WEB_PL")
+childcare_sf <- st_read("../Hands-On/data/data_3/data/child-care-services-geojson.geojson") %>%
+  st_transform(crs = 3414)
+```
+
+```{r}
+sg_sf <- mpsz_sf %>%
+  st_union()
+```
+
+List of different sub-packages for spat stat (looked at geom)
+
+create a point pattern: ppp(x, y, owin)
+
+as.ppp convert data to ppp (this one is more important)
+
+as.owin convert data to owin (window or the squares that make up grids)
+
+add maptools:: to the start of as.SpatitalGridDataFrame to fix it! -\> or you could just do it properly like I did
+
+## Take home code example
+
+acled_sf \<- read.csv() %\>%
+
+st_as_sf(coords = c("longitude", "latitude"), crs=4326) %\>%
+
+st_transform(crs = 32647) %\>%
+
+mutate(event)data = dmy(event_date))
