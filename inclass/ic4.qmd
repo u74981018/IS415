@@ -1,0 +1,134 @@
+---
+title: "In-class 4"
+author: "Lucas Vial"
+date: "Sep 9 2024"
+date-modified: "Date"
+execute: 
+  eval: false
+  echo: true
+  freeze: true
+  warning: false
+---
+
+## Forest Fires in Sumatra, Indonesia 
+
+### STKDE - Spatio-Temporal KDE (Kernel Density Estimator) 
+
+KDE but you have one for distance in space and one in time
+
+### Imports and Data Wrangling 
+
+```{r}
+pacman::p_load(sf, tmap, tidyverse, raster, spatstat, sparr, dplyr)
+```
+
+```{r}
+kbb_sf <- st_read(dsn = "data/4data/rawdata", 
+  layer = "Kepulauan_Bangka_Belitung") %>%
+  st_union() %>%
+  st_zm(drop = TRUE, what = "ZM") %>%
+  st_transform(crs = 32748) #This number is a EPSG 
+
+```
+
+EPSG - A number to refer to an area on the (world) map
+
+```{r}
+kbb_owin <- as.owin(kbb_sf)
+```
+
+```{r}
+class(kbb_owin)
+```
+
+Make the csv (long, lat) into workable data :)
+
+```{r}
+fire_sf <- read_csv("data/4data/rawdata/forestfires.csv") %>%
+  st_as_sf(coords = c("longitude", "latitude"),
+           crs = 4326) %>% 
+  st_transform(crs = 32748)
+```
+
+```{r}
+fire_sf <- fire_sf %>% 
+  mutate(DayofYear = yday(acq_date)) %>%
+  mutate(Month_num = month(acq_date)) %>%
+  mutate(Month_fac = month(acq_date,
+                           label = TRUE,
+                           abbr = FALSE)) # January or JAN ??
+```
+
+\^\^ this code makes acq data numeric - makes them into new columns
+
+### Plotting
+
+**lubridate** is the timedate package used in this course (more talk about tidyverse 😻)
+
+Be aware of Interactive mode being on or off
+
+The Below code is very literal - Its drawing the polygon of kbb_sf and then adding the dots over the top
+
+```{r}
+tm_shape(kbb_sf)+
+  tm_polygons() +
+tm_shape(fire_sf)+
+  tm_dots()
+```
+
+Each Month Plot
+
+```{r}
+tm_shape(kbb_sf)+
+  tm_polygons() +
+tm_shape(fire_sf)+
+  tm_dots(size = 0.1)+
+tm_facets(by="Month_fac",
+          free.coords = FALSE, #will be weird and zoomed in
+          drop.units = TRUE)
+```
+
+```{r}
+# Doesn't Work - 
+fire_month <- fire_sf %>%
+  dplyr::select(Month_num)
+```
+
+```{r}
+fire_month_ppp <- as.ppp(fire_month)
+fire_month_ppp
+```
+
+```{r}
+fire_month_owin <- fire_month_ppp[kbb_owin]
+```
+
+### Computing and Plotting SPKDE
+
+```{r}
+st_kde <- spattemp.density(fire_month_owin)
+summary(st_kde)
+```
+
+h = Spatial, which is 15102 = 15 km
+
+lambda = Temporal, which is 0.0304 = 0.03 months
+
+Notice how fig height and width makes the graphs looks half decent
+
+```{r}
+#| fig-width: 12
+#| fig-height: 10
+tims <- c(7,8,9,10,11,12)
+par(mfcol=c(2,3))
+for(i in tims){
+  plot(st_kde, i,
+       override.par=FALSE,
+       fix.range=TRUE,
+       main=paste("KDE at month",i))
+}
+```
+
+Theres a way to make it into a gif where you can do it day by day
+
+(he teased the code but didnt tell us how to do it 😠)

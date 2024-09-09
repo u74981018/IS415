@@ -1,0 +1,49 @@
+---
+title: "Hands-On 4"
+author: "Lucas Vial"
+date: "Sep 3 2024"
+date-modified: "Date"
+execute: 
+  eval: true
+  echo: true
+  freeze: true
+  warning: false
+---
+
+# **7  Network Constrained Spatial Point Patterns Analysis**
+
+## **7.1 Overview**
+
+**Network constrained Spatial Point Patterns Analysis (NetSPAA)** is a collection of spatial point patterns analysis methods special developed for analysing spatial point event occurs on or alongside network. The spatial point event can be locations of traffic accident or childcare centre for example. The network, on the other hand can be a road network or river network.
+
+In this hands-on exercise, you are going to gain hands-on experience on using appropriate functions of **spNetwork** package:
+
+-   to derive **network kernel density estimation (NKDE)**, and
+
+-   to perform network G-function and k-function analysis
+
+## **7.2 The Data**
+
+In this study, we will analyse the spatial distribution of childcare centre in [Punggol planning area](https://en.wikipedia.org/wiki/Punggol). For the purpose of this study, two geospatial data sets will be used. They are:
+
+-   *Punggol_St*, a line features geospatial data which store the road network within Punggol Planning Area.
+
+-   *Punggol_CC*, a point feature geospatial data which store the location of childcare centres within Punggol Planning Area.
+
+Both data sets are in ESRI shapefile format.
+
+## **7.3 Installing and launching the R packages**
+
+In this hands-on exercise, four R packages will be used, they are:
+
+-   [spNetwork](https://cran.r-project.org/web/packages/spNetwork/index.html), which provides functions to perform Spatial Point Patterns Analysis such as kernel density estimation (KDE) and K-function on network. It also can be used to build spatial matrices (‘listw’ objects like in ‘spdep’ package) to conduct any kind of traditional spatial analysis with spatial weights based on reticular distances.
+
+-   [sf](https://r-spatial.github.io/sf/index.html) package provides functions to manage, processing, and manipulate **Simple Features**, a formal geospatial data standard that specifies a storage and access model of spatial geometries such as points, lines, and polygons.
+
+-   [**tmap**](https://cran.r-project.org/web/packages/tmap/index.html) which provides functions for plotting cartographic quality static point patterns maps or interactive maps by using [leaflet](https://leafletjs.com/) API.
+
+Use the code chunk below to install and launch the four R packages.
+
+```{r}
+pacman::p_load(sf, spNetwork, tmap, tidyverse)
+```

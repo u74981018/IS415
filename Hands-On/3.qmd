@@ -800,7 +800,7 @@ clarkevans.test(childcare_tm_ppp,
                 nsim=999)
 ```
 
-# Chapter 5 - Second Order Spatial Point Pattern Analysis 
+# Chapter 5 - Second Order Spatial Point Pattern Analysis
 
 ## **5.6 Second-order Spatial Point Patterns Analysis**
 

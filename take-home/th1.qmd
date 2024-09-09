@@ -1,0 +1,133 @@
+---
+title: "Take-home Exercise 1: Geospatial Analytics for Social Good: Application of Spatial and Spatio-temporal Point Patterns Analysis to discover the geographical distribution of Armed Conflict in Myanmar"
+author: "Lucas Vial"
+date: "Sep 4 2024"
+date-modified: "Date"
+execute: 
+  eval: true
+  echo: true
+  freeze: true
+  warning: false
+---
+
+## **Setting the Scene**
+
+Millions of people have their lives shattered by armed conflict – wars – every year.
+
+Armed conflict has been on the rise since about 2012, after a decline in the 1990s and early 2000s. First came conflicts in Libya, Syria and Yemen, triggered by the 2011 Arab uprisings. Libya’s instability spilled south, helping set off a protracted crisis in the Sahel region. A fresh wave of major combat followed: the 2020 Azerbaijani-Armenian war over the Nagorno-Karabakh enclave, horrific fighting in Ethiopia’s northern Tigray region that began weeks later, the conflict prompted by the Myanmar army’s 2021 power grab and Russia’s 2022 assault on Ukraine. Add to those 2023’s devastation in Sudan and Gaza. Around the globe, more people are dying in fighting, being forced from their homes or in need of life-saving aid than in decades.
+
+Source: [10 Conflicts to Watch in 2024](https://www.crisisgroup.org/global/10-conflicts-watch-2024)
+
+## **Objectives**
+
+Geospatial analytics hold tremendous potential to address complex problems facing society. In this study, you are tasked to apply spatial point patterns analysis methods to discover the spatial and spatio-temporal distribution of armed conflict in Myanmar.
+
+## **The Data**
+
+### **Armed conflict data**
+
+For the purpose of this assignment, armed conflict data of Myanmar between 2021-2024 from [Armed Conflict Location & Event Data (ACLED)](https://acleddata.com/), an independent, impartial, international non-profit organization collecting data on violent conflict and protest in all countries and territories in the world, should be used.
+
+In terms of event types, students should focus on at least four main event types, namely: Battles, Explosion/Remote violence, Strategic developments, and Violence against civilians.
+
+In terms of study period, students should focus on quarterly armed conflict events from January 2021 until June 2024.
+
+### **GIS Data**
+
+-   [Geospatial data](http://geonode.themimu.info/layers/?limit=100&offset=0) on [Myanmar Information Management Unit, MIMU](http://www.themimu.info/)
+
+## **The Task**
+
+The specific tasks of this take-home exercise are as follows:
+
+-   Using appropriate function of **sf** and **tidyverse** packages, import and transform the downloaded armed conflict data and administrative boundary data into sf tibble data.frames.
+
+-   Using the geospatial data sets prepared, derive quarterly KDE layers.
+
+-   Using the geospatial data sets prepared, perform 2nd-Order Spatial Point Patterns Analysis.
+
+-   Using the geospatial data sets prepared, derive quarterly spatio-temporal KDE layers.
+
+-   Using the geospatial data sets prepared, perform 2nd-Order Spatio-temporal Point Patterns Analysis.
+
+-   Using appropriate **tmap** functions, display the KDE and Spatio-temporal KDE layers on openstreetmap of Myanmar.
+
+-   Describe the spatial patterns revealed by the KDE and Spatio-temporal KDE maps.
+
+## **Grading Criteria**
+
+This exercise will be graded by using the following criteria:
+
+-   **Geospatial Data Wrangling (20 marks):** This is an important aspect of geospatial analytics. You will be assessed on your ability to employ appropriate R functions from various R packages specifically designed for modern data science such as readxl, tidyverse (tidyr, dplyr, ggplot2), sf just to mention a few of them, to perform the entire geospatial data wrangling processes, including. This is not limited to data import, data extraction, data cleaning and data transformation. Besides assessing your ability to use the R functions, this criterion also includes your ability to clean and derive appropriate variables to meet the analysis need.
+
+**Warning**
+
+All data are like vast grassland full of land mines. Your job is to clear those mines and not to step on them).
+
+-   **Geospatial Analysis (30 marks):** In this exercise, you are expected to use the appropriate spatial point patterns analysis methods and R packages introduced in class to analysis the geospatial data prepared. You will be assessed on your ability to derive analytical products by using appropriate kernel estimation techniques.
+
+-   **Geovisualisation and geocommunication (20 marks):** In this section, you will be assessed on your ability to communicate Exploratory Spatial Data Analysis and Confirmatory Spatial Data Analysis results in layman friendly visual representations. This course is geospatial centric, hence, it is important for you to demonstrate your competency in using appropriate geovisualisation techniques to reveal and communicate the findings of your analysis.
+
+-   **Reproducibility (15 marks):** This is an important learning outcome of this exercise. You will be assessed on your ability to provide a comprehensive documentation of the analysis procedures in the form of code chunks of Quarto. It is important to note that it is not enough by merely providing the code chunk without any explanation on the purpose and R function(s) used.
+
+-   **Bonus (15 marks):** Demonstrate your ability to employ methods beyond what you had learned in class to gain insights from the data.
+
+## **Submission Instructions**
+
+-   The write-up of the take-home exercise must be in **Quarto html document** format. You are required to publish the write-up on [**Netlify**](https://www.netlify.com/).
+
+-   Zip the take-home exercise folder and upload it onto eLearn. If the size of the zip file is beyond the capacity of eLearn, you can upload it on SMU OneDrive and provide the download link on eLearn..
+
+## **Due Date**
+
+**22nd September 2024 (Sunday, mid-night 11:59pm)**.
+
+## **Reference**
+
+-   [Myanmar’s Troubled History: Coups, Military Rule, and Ethnic Conflict](https://www.cfr.org/backgrounder/myanmar-history-coup-military-rule-ethnic-conflict-rohingya)
+
+-   [Myanmar conflict](https://en.wikipedia.org/wiki/Myanmar_conflict)
+
+-   [Myanmar civil war (2021–present)](https://en.wikipedia.org/wiki/Myanmar_civil_war_(2021%E2%80%93present))
+
+## **Learning from senior**
+
+You are advised to review these sample submissions prepared by your seniors.
+
+-   [ANN MEI YI VICTORIA GRACE](https://is415-gaa-vic.netlify.app/take-home_ex/take-home_ex01/take-home_ex01). ![](https://is415-ay2024-25t1.netlify.app/img/thumbup1.jpg) The discussion on [Network-Constrained Kernel Density Estimation (NKDE) & Analysis](https://is415-gaa-vic.netlify.app/take-home_ex/take-home_ex01/take-home_ex01a#network-constrained-kernel-density-estimation-nkde-analysis) section is very interesting.
+
+-   [KHANT MIN NAING](https://is415-geospatial-with-khant.netlify.app/take-home_ex/take-home_ex01) ![](https://is415-ay2024-25t1.netlify.app/img/thumbup1.jpg). A very well researched submission. Did exceptionally well in performing geospatial analysis and geocommucating and did well in geospatial data wrangling and geovisualisation.
+
+-   [MATTHEW HO YIWEN](https://is415-gaa-matthew-ho.netlify.app/takehomeex/takehomeex1/the1)![](https://is415-ay2024-25t1.netlify.app/img/thumbup1.jpg) Did exceptionally well in geospatial data wrangling and reproducibility, excellence in geospatial analysis and moderate well in geovisualisation and geocommunication.
+
+# My Task
+
+## Using appropriate function of **sf** and **tidyverse** packages, import and transform the downloaded armed conflict data and administrative boundary data into sf tibble data.frames.
+
+Import sf, tmap and tidyverse
+
+```{r}
+pacman::p_load(sf, tidyverse, tmap)
+```
+
+```{r}
+data <- st_read("1data/2021-01-01-2024-06-30.csv")
+```
+
+```{r}
+tmap_mode('view')
+tm_shape(data)+
+  tm_dots()
+```
+
+## Using the geospatial data sets prepared, derive quarterly KDE layers.
+
+## Using the geospatial data sets prepared, perform 2nd-Order Spatial Point Patterns Analysis.
+
+## Using the geospatial data sets prepared, derive quarterly spatio-temporal KDE layers.
+
+## Using the geospatial data sets prepared, perform 2nd-Order Spatio-temporal Point Patterns Analysis.
+
+## Using appropriate **tmap** functions, display the KDE and Spatio-temporal KDE layers on openstreetmap of Myanmar.
+
+## Describe the spatial patterns revealed by the KDE and Spatio-temporal KDE maps.
