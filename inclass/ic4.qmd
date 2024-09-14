@@ -10,13 +10,13 @@ execute:
   warning: false
 ---
 
-## Forest Fires in Sumatra, Indonesia 
+## Forest Fires in Sumatra, Indonesia
 
-### STKDE - Spatio-Temporal KDE (Kernel Density Estimator) 
+### STKDE - Spatio-Temporal KDE (Kernel Density Estimator)
 
 KDE but you have one for distance in space and one in time
 
-### Imports and Data Wrangling 
+### Imports and Data Wrangling
 
 ```{r}
 pacman::p_load(sf, tmap, tidyverse, raster, spatstat, sparr, dplyr)

@@ -111,13 +111,14 @@ pacman::p_load(sf, tidyverse, tmap)
 ```
 
 ```{r}
-data <- st_read("1data/2021-01-01-2024-06-30.csv")
+data <- st_read("data/1data/2021-01-01-2024-06-30-Myanmar.csv") %>%
+  st_as_sf(coords = c("longitude", "latitude"),
+           crs = 1168) %>% 
+  st_transform(crs = 1168)
 ```
 
 ```{r}
-tmap_mode('view')
-tm_shape(data)+
-  tm_dots()
+
 ```
 
 ## Using the geospatial data sets prepared, derive quarterly KDE layers.

@@ -14,8 +14,10 @@ website:
           href: "Hands-On/1.html"
         - text: "2"
           href: "Hands-On/2.html"
-        - text: "Chapter 4 & 5"
+        - text: "3"
           href: "Hands-On/3.html"
+        - text: "5 (None in week 4)"
+          href: "Hands-On/4.html"
     - text: In-Class
       menu: 
         - text: "1 "
