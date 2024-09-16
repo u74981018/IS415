@@ -1,0 +1,150 @@
+---
+title: "In-class 5"
+author: "Lucas Vial"
+date: "Sep 16 2024"
+date-modified: "Date"
+execute: 
+  eval: true
+  echo: true
+  freeze: true
+  warning: false
+---
+
+Arrived only 5 minutes late!
+
+## Lectured Slide Notes 
+
+Spatial Weights (wij), How we define spatial neighbourhoods. (are these two things neighbours, wij is how we decide!)
+
+-   Adjacency criterion: Is it right next to each other? Binary Output
+
+-   Distance criterion: If its within a set a parameter of distance (use your little dots) - if location j is within distance d from i
+
+-   You can also give them their own weights; not a pass fail its close to the one
+
+Contiguity Neighbors
+
+-   Rooks, Bishops, Queen
+
+-   Second-Order (up to X-th Order) Contiguity
+
+    -   Degrees of Seperation
+
+    -   If your second, you have one between
+
+    -   first is basic or right next to you
+
+-   weights matrix - its a matrix 🤠
+
+    -   Can be binary or Distance based (0 for self)
+
+Row Standardisation (or column)
+
+-   This is just to see how many neighbours each thing has
+
+that one graph that uses row standardisation and lagged variables to show how the east is richer than the west. (the sum one includes itself)
+
+## In-Class  
+
+Install the GWmodel tool in the dropdown
+
+```{r}
+pacman::p_load(sf, spdep, tmap, tidyverse, knitr, GWmodel)
+```
+
+```{r}
+#| eval: false
+# import shapefile and parse it to a sf polygon feature object
+hunan <- st_read(dsn = "data/data_5/data/geospatial", 
+                 layer = "Hunan")
+# you should be finding out the projections and doing it accordingly, we didn't because lazy
+```
+
+```{r}
+#| eval: false
+# import csv and parse it into tibble df 
+hunan2012 <- read_csv("data/data_5/data/aspatial/Hunan_2012.csv")
+# Join Hunan and Hunan_2012 csv 
+hunan <- left_join(hunan,hunan2012) #%>%
+#  select(1:4, 7, 15)
+ # select(1:3, 7, 15, 16, 31, 32)
+# this is called data tidying, its so we dont have useless cols
+```
+
+```{r}
+#| eval: false
+write_rds(hunan, "data/data_5/data/hunan.rds")
+```
+
+```{r}
+#| echo: false
+hunan_sf <- read_rds("data/data_5/data/hunan.rds")
+```
+
+RDS are used to save the data thats been wrangled, it speeds the process up for subsequent use and uses less memory.
+
+Convert to Spatial Polygon Data Frame
+
+-   the thing we are using doesnt like sf 😭
+
+```{r}
+hunan_sp <- hunan_sf %>%
+  as_Spatial()
+```
+
+```{r}
+bw_AIC <- bw.gwr(GDPPC ~ 1,
+                 data = hunan_sp,
+                 approach = "AIC",
+                 adaptive = TRUE,
+                 kernel = "bisquare",
+                 longlat = T)
+```
+
+```{r}
+bw_CV <- bw.gwr(GDPPC ~ 1,
+                 data = hunan_sp,
+                 approach = "CV",
+                 adaptive = TRUE,
+                 kernel = "bisquare",
+                 longlat = T)
+```
+
+You can used fixed bandwidth (change adaptive to false)
+
+```{r}
+gwstat <- gwss(data = hunan_sp,
+               vars = "GDPPC",
+               bw = bw_AIC,
+               kernel = "bisquare",
+               adaptive = TRUE,
+               longlat = T)
+```
+
+Put the good stuff in a dataframe
+
+```{r}
+gwstat_df <- as.data.frame(gwstat$SDF)
+```
+
+Add it to hunan_sf, then you have it in your main data! - will be helpful for graph
+
+```{r}
+hunan_gstat <- cbind(hunan_sf, gwstat_df)
+# this is appending 
+```
+
+Code Displaying it
+
+```{r}
+tm_shape(hunan_gstat) +
+  tm_fill("GDPPC_LM",
+          n = 5,
+          style = "quantile") +
+  tm_borders(alpha = 0.5) +
+  tm_layout(main.title = "Distribution of geographically weighted mean", 
+            main.title.position = "center", 
+            main.title.size = 0.5, 
+            legend.text.size = 1.2, 
+            frame = TRUE)
+```
