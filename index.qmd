@@ -17,3 +17,9 @@ follow me on insta @lucaslastname
 Summary of Weeks
 
 Week 4 - Time
+
+Other Key Notes
+
+Aspatial data - The stuff you need to wrangle to make spatial - long and lat columns
+
+geospatial data - those map frames mostly
