@@ -12,7 +12,7 @@ execute:
 
 Arrived only 5 minutes late!
 
-## Lectured Slide Notes 
+## Lectured Slide Notes
 
 Spatial Weights (wij), How we define spatial neighbourhoods. (are these two things neighbours, wij is how we decide!)
 
@@ -44,7 +44,7 @@ Row Standardisation (or column)
 
 that one graph that uses row standardisation and lagged variables to show how the east is richer than the west. (the sum one includes itself)
 
-## In-Class  
+## In-Class
 
 Install the GWmodel tool in the dropdown
 
