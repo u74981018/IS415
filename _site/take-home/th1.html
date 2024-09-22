@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Lucas Vial">
+<meta name="dcterms.date" content="2024-09-04">
 
-<title>IS415</title>
+<title>IS415 - Take-home Exercise 1: Geospatial Analytics for Social Good: Application of Spatial and Spatio-temporal Point Patterns Analysis to discover the geographical distribution of Armed Conflict in Myanmar</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -66,6 +102,26 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<link href="../site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+
+<link href="../site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+
+<script src="../site_libs/leaflet-1.3.1/leaflet.js"></script>
+
+<link href="../site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+
+<script src="../site_libs/proj4-2.6.2/proj4.min.js"></script>
+
+<script src="../site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+
+<link href="../site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+
+<script src="../site_libs/leaflet-binding-2.2.2/leaflet.js"></script>
+
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -162,16 +218,428 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#setting-the-scene" id="toc-setting-the-scene" class="nav-link active" data-scroll-target="#setting-the-scene"><strong>Setting the Scene</strong></a></li>
+  <li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives"><strong>Objectives</strong></a></li>
+  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data"><strong>The Data</strong></a>
+  <ul class="collapse">
+  <li><a href="#armed-conflict-data" id="toc-armed-conflict-data" class="nav-link" data-scroll-target="#armed-conflict-data"><strong>Armed conflict data</strong></a></li>
+  <li><a href="#gis-data" id="toc-gis-data" class="nav-link" data-scroll-target="#gis-data"><strong>GIS Data</strong></a></li>
+  </ul></li>
+  <li><a href="#the-task" id="toc-the-task" class="nav-link" data-scroll-target="#the-task"><strong>The Task</strong></a></li>
+  <li><a href="#grading-criteria" id="toc-grading-criteria" class="nav-link" data-scroll-target="#grading-criteria"><strong>Grading Criteria</strong></a></li>
+  <li><a href="#submission-instructions" id="toc-submission-instructions" class="nav-link" data-scroll-target="#submission-instructions"><strong>Submission Instructions</strong></a></li>
+  <li><a href="#due-date" id="toc-due-date" class="nav-link" data-scroll-target="#due-date"><strong>Due Date</strong></a></li>
+  <li><a href="#reference" id="toc-reference" class="nav-link" data-scroll-target="#reference"><strong>Reference</strong></a></li>
+  <li><a href="#my-task" id="toc-my-task" class="nav-link" data-scroll-target="#my-task">My Task</a>
+  <ul class="collapse">
+  <li><a href="#using-appropriate-function-of-sf-and-tidyverse-packages-import-and-transform-the-downloaded-armed-conflict-data-and-administrative-boundary-data-into-sf-tibble-data.frames." id="toc-using-appropriate-function-of-sf-and-tidyverse-packages-import-and-transform-the-downloaded-armed-conflict-data-and-administrative-boundary-data-into-sf-tibble-data.frames." class="nav-link" data-scroll-target="#using-appropriate-function-of-sf-and-tidyverse-packages-import-and-transform-the-downloaded-armed-conflict-data-and-administrative-boundary-data-into-sf-tibble-data.frames.">Using appropriate function of <strong>sf</strong> and <strong>tidyverse</strong> packages, import and transform the downloaded armed conflict data and administrative boundary data into sf tibble data.frames.</a>
+  <ul class="collapse">
+  <li><a href="#data-importing" id="toc-data-importing" class="nav-link" data-scroll-target="#data-importing">Data Importing</a></li>
+  </ul></li>
+  <li><a href="#using-the-geospatial-data-sets-prepared-derive-quarterly-kde-layers." id="toc-using-the-geospatial-data-sets-prepared-derive-quarterly-kde-layers." class="nav-link" data-scroll-target="#using-the-geospatial-data-sets-prepared-derive-quarterly-kde-layers.">Using the geospatial data sets prepared, derive quarterly KDE layers.</a>
+  <ul class="collapse">
+  <li><a href="#data-wrangling-for-quarters" id="toc-data-wrangling-for-quarters" class="nav-link" data-scroll-target="#data-wrangling-for-quarters">Data Wrangling for Quarters</a></li>
+  <li><a href="#data-wrangling---cont." id="toc-data-wrangling---cont." class="nav-link" data-scroll-target="#data-wrangling---cont.">Data Wrangling - cont.</a></li>
+  <li><a href="#kde-layers" id="toc-kde-layers" class="nav-link" data-scroll-target="#kde-layers">KDE Layers</a></li>
+  </ul></li>
+  <li><a href="#using-the-geospatial-data-sets-prepared-perform-2nd-order-spatial-point-patterns-analysis." id="toc-using-the-geospatial-data-sets-prepared-perform-2nd-order-spatial-point-patterns-analysis." class="nav-link" data-scroll-target="#using-the-geospatial-data-sets-prepared-perform-2nd-order-spatial-point-patterns-analysis.">Using the geospatial data sets prepared, perform 2nd-Order Spatial Point Patterns Analysis.</a></li>
+  <li><a href="#using-appropriate-tmap-functions-display-the-kde-on-openstreetmap-of-myanmar." id="toc-using-appropriate-tmap-functions-display-the-kde-on-openstreetmap-of-myanmar." class="nav-link" data-scroll-target="#using-appropriate-tmap-functions-display-the-kde-on-openstreetmap-of-myanmar.">Using appropriate <strong>tmap</strong> functions, display the KDE on openstreetmap of Myanmar.</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Take-home Exercise 1: Geospatial Analytics for Social Good: Application of Spatial and Spatio-temporal Point Patterns Analysis to discover the geographical distribution of Armed Conflict in Myanmar</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Lucas Vial </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 4, 2024</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">Invalid Date</p>
+    </div>
+  </div>
+    
+  </div>
+  
 
 
+</header>
+
+
+<section id="setting-the-scene" class="level2">
+<h2 class="anchored" data-anchor-id="setting-the-scene"><strong>Setting the Scene</strong></h2>
+<p>Millions of people have their lives shattered by armed conflict – wars – every year.</p>
+<p>Armed conflict has been on the rise since about 2012, after a decline in the 1990s and early 2000s. First came conflicts in Libya, Syria and Yemen, triggered by the 2011 Arab uprisings. Libya’s instability spilled south, helping set off a protracted crisis in the Sahel region. A fresh wave of major combat followed: the 2020 Azerbaijani-Armenian war over the Nagorno-Karabakh enclave, horrific fighting in Ethiopia’s northern Tigray region that began weeks later, the conflict prompted by the Myanmar army’s 2021 power grab and Russia’s 2022 assault on Ukraine. Add to those 2023’s devastation in Sudan and Gaza. Around the globe, more people are dying in fighting, being forced from their homes or in need of life-saving aid than in decades.</p>
+<p>Source: <a href="https://www.crisisgroup.org/global/10-conflicts-watch-2024">10 Conflicts to Watch in 2024</a></p>
+</section>
+<section id="objectives" class="level2">
+<h2 class="anchored" data-anchor-id="objectives"><strong>Objectives</strong></h2>
+<p>Geospatial analytics hold tremendous potential to address complex problems facing society. In this study, you are tasked to apply spatial point patterns analysis methods to discover the spatial and spatio-temporal distribution of armed conflict in Myanmar.</p>
+</section>
+<section id="the-data" class="level2">
+<h2 class="anchored" data-anchor-id="the-data"><strong>The Data</strong></h2>
+<section id="armed-conflict-data" class="level3">
+<h3 class="anchored" data-anchor-id="armed-conflict-data"><strong>Armed conflict data</strong></h3>
+<p>For the purpose of this assignment, armed conflict data of Myanmar between 2021-2024 from <a href="https://acleddata.com/">Armed Conflict Location &amp; Event Data (ACLED)</a>, an independent, impartial, international non-profit organization collecting data on violent conflict and protest in all countries and territories in the world, should be used.</p>
+<p>In terms of event types, students should focus on at least four main event types, namely: Battles, Explosion/Remote violence, Strategic developments, and Violence against civilians.</p>
+<p>In terms of study period, students should focus on quarterly armed conflict events from January 2021 until June 2024.</p>
+</section>
+<section id="gis-data" class="level3">
+<h3 class="anchored" data-anchor-id="gis-data"><strong>GIS Data</strong></h3>
+<ul>
+<li><a href="http://geonode.themimu.info/layers/?limit=100&amp;offset=0">Geospatial data</a> on <a href="http://www.themimu.info/">Myanmar Information Management Unit, MIMU</a></li>
+</ul>
+</section>
+</section>
+<section id="the-task" class="level2">
+<h2 class="anchored" data-anchor-id="the-task"><strong>The Task</strong></h2>
+<p>The specific tasks of this take-home exercise are as follows:</p>
+<ul>
+<li><p>Using appropriate function of <strong>sf</strong> and <strong>tidyverse</strong> packages, import and transform the downloaded armed conflict data and administrative boundary data into sf tibble data.frames.</p></li>
+<li><p>Using the geospatial data sets prepared, derive quarterly KDE layers.</p></li>
+<li><p>Using the geospatial data sets prepared, perform 2nd-Order Spatial Point Patterns Analysis.</p></li>
+<li><p>Using the geospatial data sets prepared, derive quarterly spatio-temporal KDE layers.</p></li>
+<li><p>Using the geospatial data sets prepared, perform 2nd-Order Spatio-temporal Point Patterns Analysis.</p></li>
+<li><p>Using appropriate <strong>tmap</strong> functions, display the KDE and Spatio-temporal KDE layers on openstreetmap of Myanmar.</p></li>
+<li><p>Describe the spatial patterns revealed by the KDE and Spatio-temporal KDE maps.</p></li>
+</ul>
+</section>
+<section id="grading-criteria" class="level2">
+<h2 class="anchored" data-anchor-id="grading-criteria"><strong>Grading Criteria</strong></h2>
+<p>This exercise will be graded by using the following criteria:</p>
+<ul>
+<li><strong>Geospatial Data Wrangling (20 marks):</strong> This is an important aspect of geospatial analytics. You will be assessed on your ability to employ appropriate R functions from various R packages specifically designed for modern data science such as readxl, tidyverse (tidyr, dplyr, ggplot2), sf just to mention a few of them, to perform the entire geospatial data wrangling processes, including. This is not limited to data import, data extraction, data cleaning and data transformation. Besides assessing your ability to use the R functions, this criterion also includes your ability to clean and derive appropriate variables to meet the analysis need.</li>
+</ul>
+<p><strong>Warning</strong></p>
+<p>All data are like vast grassland full of land mines. Your job is to clear those mines and not to step on them).</p>
+<ul>
+<li><p><strong>Geospatial Analysis (30 marks):</strong> In this exercise, you are expected to use the appropriate spatial point patterns analysis methods and R packages introduced in class to analysis the geospatial data prepared. You will be assessed on your ability to derive analytical products by using appropriate kernel estimation techniques.</p></li>
+<li><p><strong>Geovisualisation and geocommunication (20 marks):</strong> In this section, you will be assessed on your ability to communicate Exploratory Spatial Data Analysis and Confirmatory Spatial Data Analysis results in layman friendly visual representations. This course is geospatial centric, hence, it is important for you to demonstrate your competency in using appropriate geovisualisation techniques to reveal and communicate the findings of your analysis.</p></li>
+<li><p><strong>Reproducibility (15 marks):</strong> This is an important learning outcome of this exercise. You will be assessed on your ability to provide a comprehensive documentation of the analysis procedures in the form of code chunks of Quarto. It is important to note that it is not enough by merely providing the code chunk without any explanation on the purpose and R function(s) used.</p></li>
+<li><p><strong>Bonus (15 marks):</strong> Demonstrate your ability to employ methods beyond what you had learned in class to gain insights from the data.</p></li>
+</ul>
+</section>
+<section id="submission-instructions" class="level2">
+<h2 class="anchored" data-anchor-id="submission-instructions"><strong>Submission Instructions</strong></h2>
+<ul>
+<li><p>The write-up of the take-home exercise must be in <strong>Quarto html document</strong> format. You are required to publish the write-up on <a href="https://www.netlify.com/"><strong>Netlify</strong></a>.</p></li>
+<li><p>Zip the take-home exercise folder and upload it onto eLearn. If the size of the zip file is beyond the capacity of eLearn, you can upload it on SMU OneDrive and provide the download link on eLearn..</p></li>
+</ul>
+</section>
+<section id="due-date" class="level2">
+<h2 class="anchored" data-anchor-id="due-date"><strong>Due Date</strong></h2>
+<p><strong>22nd September 2024 (Sunday, mid-night 11:59pm)</strong>.</p>
+</section>
+<section id="reference" class="level2">
+<h2 class="anchored" data-anchor-id="reference"><strong>Reference</strong></h2>
+<ul>
+<li><p><a href="https://www.cfr.org/backgrounder/myanmar-history-coup-military-rule-ethnic-conflict-rohingya">Myanmar’s Troubled History: Coups, Military Rule, and Ethnic Conflict</a></p></li>
+<li><p><a href="https://en.wikipedia.org/wiki/Myanmar_conflict">Myanmar conflict</a></p></li>
+<li><p><a href="https://en.wikipedia.org/wiki/Myanmar_civil_war_(2021%E2%80%93present)">Myanmar civil war (2021–present)</a></p></li>
+</ul>
+</section>
+<section id="my-task" class="level1">
+<h1>My Task</h1>
+<section id="using-appropriate-function-of-sf-and-tidyverse-packages-import-and-transform-the-downloaded-armed-conflict-data-and-administrative-boundary-data-into-sf-tibble-data.frames." class="level2">
+<h2 class="anchored" data-anchor-id="using-appropriate-function-of-sf-and-tidyverse-packages-import-and-transform-the-downloaded-armed-conflict-data-and-administrative-boundary-data-into-sf-tibble-data.frames.">Using appropriate function of <strong>sf</strong> and <strong>tidyverse</strong> packages, import and transform the downloaded armed conflict data and administrative boundary data into sf tibble data.frames.</h2>
+<p>Import kitchen sink packages. here are some small descriptions of them:</p>
+<p>sf: used for geospatial data</p>
+<p>spatstat: point pattern analysis</p>
+<p>tidyverse: modular packages installations, lots of different utility in here</p>
+<p>tmap: interactive visualisations</p>
+<p>raster: density calculation</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sf, tidyverse, lubridate, spatstat, raster, tmap, sparr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="data-importing" class="level3">
+<h3 class="anchored" data-anchor-id="data-importing">Data Importing</h3>
+<p>Read in the csv data file from the ACLED website that contains Armed Conflict data of Myanmar between 2021-2024. Also read in the Myanmar ESRI file. Both need to be transformed to match.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/1data/2021-01-01-2024-06-30-Myanmar.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(data, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"longitude"</span>, <span class="st">"latitude"</span>), <span class="at">crs =</span> <span class="dv">4326</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>data_sf <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(data_sf, <span class="at">crs =</span> <span class="dv">32648</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>mmr <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="at">dsn=</span><span class="st">"data/1data/geospatial/mmr"</span>, <span class="at">layer =</span> <span class="st">"mmr_polbnda_adm1_250k_mimu_1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reading layer `mmr_polbnda_adm1_250k_mimu_1' from data source 
+  `C:\Users\thevi\OneDrive\Desktop\IS415\IS415\take-home\data\1data\geospatial\mmr' 
+  using driver `ESRI Shapefile'
+Simple feature collection with 15 features and 6 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: 92.1721 ymin: 9.696844 xmax: 101.17 ymax: 28.54554
+Geodetic CRS:  WGS 84</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mmr <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(mmr, <span class="at">crs =</span> <span class="dv">32648</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="using-the-geospatial-data-sets-prepared-derive-quarterly-kde-layers." class="level2">
+<h2 class="anchored" data-anchor-id="using-the-geospatial-data-sets-prepared-derive-quarterly-kde-layers.">Using the geospatial data sets prepared, derive quarterly KDE layers.</h2>
+<section id="data-wrangling-for-quarters" class="level3">
+<h3 class="anchored" data-anchor-id="data-wrangling-for-quarters">Data Wrangling for Quarters</h3>
+<p>Changed the event_date to a standardized format, added year/quarter column and quarter (1-14) column.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data_sf<span class="sc">$</span>event_date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(data_sf<span class="sc">$</span>event_date, <span class="at">format =</span> <span class="st">"%d %b %Y"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>data_sf <span class="ot">&lt;-</span> data_sf <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">quarter_num =</span> <span class="fu">case_when</span>(</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">==</span> <span class="dv">2021</span> <span class="sc">&amp;</span> event_date <span class="sc">&lt;</span> <span class="fu">as.Date</span>(<span class="st">"2021-04-01"</span>) <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">==</span> <span class="dv">2021</span> <span class="sc">&amp;</span> event_date <span class="sc">&lt;</span> <span class="fu">as.Date</span>(<span class="st">"2021-07-01"</span>) <span class="sc">~</span> <span class="dv">2</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">==</span> <span class="dv">2021</span> <span class="sc">&amp;</span> event_date <span class="sc">&lt;</span> <span class="fu">as.Date</span>(<span class="st">"2021-10-01"</span>) <span class="sc">~</span> <span class="dv">3</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">==</span> <span class="dv">2021</span> <span class="sc">~</span> <span class="dv">4</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">==</span> <span class="dv">2022</span> <span class="sc">&amp;</span> event_date <span class="sc">&lt;</span> <span class="fu">as.Date</span>(<span class="st">"2022-04-01"</span>) <span class="sc">~</span> <span class="dv">5</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">==</span> <span class="dv">2022</span> <span class="sc">&amp;</span> event_date <span class="sc">&lt;</span> <span class="fu">as.Date</span>(<span class="st">"2022-07-01"</span>) <span class="sc">~</span> <span class="dv">6</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">==</span> <span class="dv">2022</span> <span class="sc">&amp;</span> event_date <span class="sc">&lt;</span> <span class="fu">as.Date</span>(<span class="st">"2022-10-01"</span>) <span class="sc">~</span> <span class="dv">7</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">==</span> <span class="dv">2022</span> <span class="sc">~</span> <span class="dv">8</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">==</span> <span class="dv">2023</span> <span class="sc">&amp;</span> event_date <span class="sc">&lt;</span> <span class="fu">as.Date</span>(<span class="st">"2023-04-01"</span>) <span class="sc">~</span> <span class="dv">9</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">==</span> <span class="dv">2023</span> <span class="sc">&amp;</span> event_date <span class="sc">&lt;</span> <span class="fu">as.Date</span>(<span class="st">"2023-07-01"</span>) <span class="sc">~</span> <span class="dv">10</span>,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">==</span> <span class="dv">2023</span> <span class="sc">&amp;</span> event_date <span class="sc">&lt;</span> <span class="fu">as.Date</span>(<span class="st">"2023-10-01"</span>) <span class="sc">~</span> <span class="dv">11</span>,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">==</span> <span class="dv">2023</span> <span class="sc">~</span> <span class="dv">12</span>,</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">==</span> <span class="dv">2024</span> <span class="sc">&amp;</span> event_date <span class="sc">&lt;</span> <span class="fu">as.Date</span>(<span class="st">"2024-04-01"</span>) <span class="sc">~</span> <span class="dv">13</span>,</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">==</span> <span class="dv">2024</span> <span class="sc">~</span> <span class="dv">14</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="data-wrangling---cont." class="level3">
+<h3 class="anchored" data-anchor-id="data-wrangling---cont.">Data Wrangling - cont.</h3>
+<p>Make a ppp and sp for the data frames for future use.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data_ <span class="ot">&lt;-</span> <span class="fu">as_Spatial</span>(data_sf)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>data_sp <span class="ot">&lt;-</span> <span class="fu">as</span>(data_, <span class="st">"SpatialPoints"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>data_ppp <span class="ot">&lt;-</span> <span class="fu">as.ppp</span>(data_sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Check if any data_ppp points are duplicated - if they are this could lead to data validation problems.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">duplicated</span>(data_ppp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mmr_owin <span class="ot">&lt;-</span> <span class="fu">as.owin</span>(mmr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="kde-layers" class="level3">
+<h3 class="anchored" data-anchor-id="kde-layers">KDE Layers</h3>
+<p>For each quarterly layer, we must create a spot for it to be stored in.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data_list <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">14</span>, <span class="cf">function</span>(q) {</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(data_sf, quarter_num <span class="sc">==</span> q)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data_list) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"data"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">14</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Go through all of the quarters and create them all an Owin file.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>  ppp_list <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">14</span>, <span class="cf">function</span>(q) {</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  quarter_data <span class="ot">&lt;-</span> <span class="fu">filter</span>(data_sf, quarter_num <span class="sc">==</span> q)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  quarter_ppp <span class="ot">&lt;-</span> <span class="fu">as.ppp</span>(quarter_data)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  mmr_ppp_quarter <span class="ot">&lt;-</span> quarter_ppp[mmr_owin]</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(mmr_ppp_quarter)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ppp_list) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"mmr_ppp_quarter_"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">14</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Calculate a KDE for all quarters, plot them and save them to raster files.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">14</span>) {</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  mmr_ppp_quarter <span class="ot">&lt;-</span> ppp_list[[<span class="fu">paste0</span>(<span class="st">"mmr_ppp_quarter_"</span>, i)]]</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute density</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  density_ppp <span class="ot">&lt;-</span> <span class="fu">density</span>(mmr_ppp_quarter)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  density_raster <span class="ot">&lt;-</span> <span class="fu">raster</span>(density_ppp)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Save the raster to a file</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">writeRaster</span>(density_raster, <span class="at">filename =</span> <span class="fu">paste0</span>(<span class="st">"data/1data/raster/KDE/density_quarter_"</span>, i, <span class="st">".tif"</span>), <span class="at">format =</span> <span class="st">"GTiff"</span>, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(density_raster, <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Density for Quarter"</span>, i))</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="th1_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="th1_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="th1_files/figure-html/unnamed-chunk-9-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="th1_files/figure-html/unnamed-chunk-9-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="th1_files/figure-html/unnamed-chunk-9-5.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="th1_files/figure-html/unnamed-chunk-9-6.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="th1_files/figure-html/unnamed-chunk-9-7.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="th1_files/figure-html/unnamed-chunk-9-8.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="th1_files/figure-html/unnamed-chunk-9-9.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="th1_files/figure-html/unnamed-chunk-9-10.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="th1_files/figure-html/unnamed-chunk-9-11.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="th1_files/figure-html/unnamed-chunk-9-12.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="th1_files/figure-html/unnamed-chunk-9-13.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="th1_files/figure-html/unnamed-chunk-9-14.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="using-the-geospatial-data-sets-prepared-perform-2nd-order-spatial-point-patterns-analysis." class="level2">
+<h2 class="anchored" data-anchor-id="using-the-geospatial-data-sets-prepared-perform-2nd-order-spatial-point-patterns-analysis.">Using the geospatial data sets prepared, perform 2nd-Order Spatial Point Patterns Analysis.</h2>
+<p>Some data wrangling</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>data_ppp <span class="ot">&lt;-</span> <span class="fu">as.ppp</span>(data_sf)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>mmr_ppp <span class="ot">&lt;-</span> data_ppp[mmr_owin]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Using F-Function, create a F-curve</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>F_MMR <span class="ot">=</span> <span class="fu">Fest</span>(mmr_ppp)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(F_MMR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="th1_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Using a Monte Carlo Simulation, Discover the feasibility of the Second-Order KDE</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>F_MMR.csr <span class="ot">&lt;-</span> <span class="fu">envelope</span>(mmr_ppp, Fest, <span class="at">nsim =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Generating 3 simulations of CSR  ...
+1, 2,  [57 sec remaining] 
+3.
+
+Done.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(F_MMR.csr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="th1_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="using-appropriate-tmap-functions-display-the-kde-on-openstreetmap-of-myanmar." class="level2">
+<h2 class="anchored" data-anchor-id="using-appropriate-tmap-functions-display-the-kde-on-openstreetmap-of-myanmar.">Using appropriate <strong>tmap</strong> functions, display the KDE on openstreetmap of Myanmar.</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">"view"</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>kde_map <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(density_raster) <span class="sc">+</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>           <span class="fu">tm_raster</span>(<span class="at">title =</span> <span class="st">"KDE"</span>, <span class="at">palette =</span> <span class="st">"viridis"</span>) <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>           <span class="fu">tm_basemap</span>(<span class="at">server =</span> <span class="st">"oms"</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>kde_map</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-03d8eefa6d771b160f34" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-03d8eefa6d771b160f34">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"createMapPane","args":["tmap401",401]},{"method":"addTiles","args":["oms",null,"oms",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"pane":"tilePane"}]},{"method":"addRasterImage","args":["data:image/png;base64,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",[[28.73815240384013,-8.241778819891003],[9.721314883513344,1.051216619930157]],1,null,"tmap401","density_raster"]},{"method":"addLegend","args":[{"colors":["#440154","#414487","#2A788E","#22A884","#7AD151","#FDE725"],"labels":["0.000000000 to 0.000000002","0.000000002 to 0.000000004","0.000000004 to 0.000000006","0.000000006 to 0.000000008","0.000000008 to 0.000000010","0.000000010 to 0.000000012"],"na_color":null,"na_label":"NA","opacity":1,"position":"topright","type":"unknown","title":"KDE","extra":null,"layerId":"legend401","className":"info legend density_raster","group":"density_raster"}]},{"method":"addLayersControl","args":[[],"density_raster",{"collapsed":true,"autoZIndex":true,"position":"topleft"}]}],"limits":{"lat":[9.721314883513344,28.73815240384013],"lng":[-8.241778819891003,1.051216619930157]},"fitBounds":[9.7341382311691,-8.241778819891003,28.73677557984888,1.01455041678513,[]]},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Sorry for low-quality submission - found the work/requirements very confusing</p>
+
+
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
