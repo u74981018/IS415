@@ -1,0 +1,269 @@
+---
+title: "In-class 6"
+author: "Lucas Vial"
+date: "Sep 23 2024"
+date-modified: "Date"
+execute: 
+  eval: true
+  echo: true
+  freeze: true
+  warning: false
+---
+
+# [**Lesson 6: Global and Local Measures of Spatial Autocorrelation**](https://is415-ay2024-25t1.netlify.app/outline/lesson06_outline)
+
+Basically just checking if distributions are random, whether they are considered outliers.
+
+Near things are more related than distant things - spatital dependence and spatial autocorrelation
+
+**Spatial Dependency** - Relationship of variables, statistical dependence
+
+**Spatial Autocorrelation** - Term used to describe the presence of systematic spatial variation, used for clustering pm. Can be across continuous surface, fixed sites or areas.
+
+-   Positive Spatial Autocorrelation: There is a correlation, neighbors are similar. Usually apparent in clustering (Correlation Co-Efficient)
+
+-   Negative Spatial Autocorrelation: Checkerbox patterns, "opposite" of clustering, neighbours are all dissimiliar, More dissimilar than a random output.
+
+## Moran I
+
+Moran I, Z-Value. Describe how features differ from the values in the study area as a whole.
+
+\| + - Clustered \| - - Dispersed \| 0 - Random \|
+
+## Geary C
+
+Geary C, Z-Value. Describes how features differ from their immediate neighbours.
+
+\| \>1 - Dispersed \| \<1 - Clustered \| 1 - Random \|
+
+## Z-Score and P-Values 
+
+Alpha value of 0.05, Null Hypothesis, lots of rambling about data timeliness and confidence levels/intervals.
+
+## Getis-Ord Global G
+
+Overall concentration or lack of concentration in all pairs that are neighbours. The variable only takes postitive values. Cluster Detection.
+
+## Local Spatial Autocorrelation Statistics 
+
+Collection of geospatial statistical analysis methods to find location related tendency
+
+### LISA - Local Indicator of Spatial Association 
+
+Given a set of features and analysis field, the spatial statistics identify spatial clusters of features with high or low values. It also identifies spatial outliers.
+
+High-High \| High-Low \| Low-High \| Low-Low
+
+### Morans Local I 
+
+Do this for the first step, its Moran's I, but local. You can then find their p-value to check if the correlation is statistically significant.
+
+Hot and Cold Spots - High Clusters and Low Clusters
+
+Only use the significant ones.
+
+**Break**
+
+## Course Announcements 
+
+Take-Home Task 2 is due next week Sunday
+
+-   Theres still more slides at the end to do :(
+
+-   Its based off thailand
+
+-   **No Hands-On Excersise this week or next week**
+
+# In-Class 
+
+[sfdep](https://sfdep.josiahparry.com/) package: list columns to make an interface
+
+```{r}
+pacman::p_load(sfdep, tidyverse, sf, tmap)
+```
+
+```{r}
+hunan <- st_read(dsn = "data/6data/data/geospatial", 
+                 layer = "Hunan")
+hunan2012 <- read_csv("data/6data/data/aspatial/Hunan_2012.csv")
+hunan_GDP <- left_join(hunan,hunan2012) %>%
+  select(1:4, 7, 15)
+```
+
+**Deriving Queens contiguity weights with sfdep methods**
+
+`st_weights()` has three arguments
+
+-   nb: neighbour list objects
+
+-   style: W for row standardized weights, C globally standardised, U is C / n, S is variance-stabilised
+
+-   allow_zero: if true, assigns zero as lagged value to zone without neighbours
+
+```{r}
+wm_q <- hunan_GDP %>%
+  mutate(nb = st_contiguity(geometry),
+         wt = st_weights(nb,
+                         style="W"),
+         .before = 1)
+#.before puts the column at the front, not the back :) 
+```
+
+This adds a column with the neighbors for each row. c(2,3,4) = row 1 is n with 2,3,4
+
+### Computing Global Moran I 
+
+Calculate the Global Moran I, the output is a tibble data.frame. You don't normally do this in examples, more of a test :)
+
+```{r}
+moranI <- global_moran(wm_q$GDPPC,
+                       wm_q$nb,
+                       wm_q$wt)
+glimpse(moranI)
+```
+
+K is average neighbors found, I is the thing 😍
+
+**Performing Global Moran's I Test**
+
+This is the thing you want to run, instead of computing the stats, you want to perform a test with them. use `global_moran_test` as shown below.
+
+```{r}
+global_moran_test(wm_q$GDPPC, wm_q$nb, wm_q$wt)
+```
+
+\^ Do analysis stuff's on this
+
+-   Make sure your p-value is low enough (smaller than confidence level at 0.05)
+
+-   THEN use the Moran I statistic to draw conclusions
+
+**Permutation Test**
+
+Monte Carlo should be used to run the simulation. Its supported by sfdep :). You can basically start from this step.
+
+```{r}
+# Set a seed for reproducibility
+set.seed(1234)
+```
+
+Very Similar to the other test but using `global_moran_perm` and adding the nsim, which is set to 99 for how many times its going to be run through.
+
+```{r}
+global_moran_perm(wm_q$GDPPC, 
+                  wm_q$nb, 
+                  wm_q$wt, 
+                  nsim = 99)
+```
+
+Moran I, statistic is roughly the same, which proves that its stable. We know this because we ran it 100 times 😍
+
+### Computing Local Moran's I 
+
+Here we compute the local Moran's I of GDPPC at county level by using the `local_moran` sfdep package.
+
+```{r}
+lisa <- wm_q %>% 
+  mutate(local_moran = local_moran(
+    GDPPC, nb, wt, nsim = 99),
+        .before = 1) %>%
+  unnest(local_moran)
+```
+
+This creates the lisa data.frame, with lots of helpful statistics, including what region is categorized as (HIGH/HIGH, p, var.....)
+
+-   Lots of p values in this df, It's reccomended that you stick with the same one. (Use p_ii_sim, this will make it the same as your simulation)
+
+-   With the HIGH/LOW columns, the mean and media ones are the important ones.
+
+-   Skewness can help you decide - high skew means you pick median
+
+### **Visualising local Morans I** 
+
+```{r}
+tmap_mode("plot")
+map1 <- tm_shape(lisa)+
+  tm_fill("ii")+
+  tm_borders(alpha = 0.5)+
+  tm_layout(main.title = "Local Moran I")
+  # tm_view(set.zoom.limits = c(6,8))
+  # tm_layout 
+    #main.title 
+    # main.title.size 
+
+# This needs to be assigned labels 
+map2 <- tm_shape(lisa) +
+  tm_fill("p_ii_sim")+ #,
+    #      breaks =  This is where you set your sign level legend 
+      #      label) +
+  tm_borders(alpha = 0.5) +
+  tm_layout(main.title = "Significance Level")
+
+tmap_arrange(map1, map2, ncol = 2)
+```
+
+### Lisa Map Visualization 
+
+The LISA Map Visualization is a combination of the p significance level and local moran I, it will graph the Moran correlations when the significance meets its required level (null hypothesis)
+
+```{r}
+#| warning: false
+#| error: false
+lisa_sig <- lisa %>% 
+  filter(p_ii < 0.05)
+tm_shape(lisa)+
+  tm_polygons()+
+  tm_borders(alpha=0.5)+
+tm_shape(lisa_sig) +
+  tm_fill("mean")+
+  tm_borders(alpha=0.4)+
+  tm_layout(main.title = "LISA map")
+```
+
+## Hot and Cold Spot Analysis 
+
+Computing Local G\* statistics (One with and without asterix)
+
+This is in the same format as the Local Moran I statistics
+
+```{r}
+wm_idw <- hunan_GDP %>%
+  mutate(nb = st_contiguity(geometry),
+         wts = st_inverse_distance(nb, geometry,
+                                   scale = 1,
+                                   alpha = 1),
+         .before = 1)
+```
+
+Similar process to LISA/Moran I stat creation
+
+```{r}
+set.seed(1234)
+HCSA <- wm_idw %>% 
+  mutate(local_Gi = local_gstar_perm(
+    GDPPC, nb, wt, nsim = 99),
+    .before = 1) %>%
+  unnest(local_Gi)
+HCSA
+```
+
+**Visualisation**
+
+```{r}
+tm_shape(HCSA)+
+  tm_fill("gi_star")+
+  tm_borders(alpha=0.5)+
+  tm_layout(main.title = "G*")
+```
+
+```{r}
+HCSA_sig <- HCSA %>% 
+  filter(p_sim < 0.05)
+
+tm_shape(HCSA)+
+  tm_polygons()+
+  tm_borders(alpha=0.5)+
+tm_shape(HCSA_sig)+
+  tm_fill("gi_star")+
+  tm_borders(alpha=0.4)
+```

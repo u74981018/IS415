@@ -32,6 +32,8 @@ website:
           href: "inclass/ic4.html"
         - text: "5"
           href: "inclass/ic5.html"
+        - text: "6"
+          href: "inclass/ic6.html"
     - text: "Take Home 1"
       href: "take-home/th1.html"
 format:

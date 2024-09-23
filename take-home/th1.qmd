@@ -111,7 +111,7 @@ pacman::p_load(sf, tidyverse, lubridate, spatstat, raster, tmap, sparr)
 
 ```
 
-### Data Importing 
+### Data Importing
 
 Read in the csv data file from the ACLED website that contains Armed Conflict data of Myanmar between 2021-2024. Also read in the Myanmar ESRI file. Both need to be transformed to match.
 
