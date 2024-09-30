@@ -1,0 +1,15 @@
+{
+  "hash": "0096669ff28ad1de30371cbbe19847ad",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Take Home 2\"\nauthor: \"Lucas Vial\"\ndate: \"Sep 23 2024\"\ndate-modified: \"Date\"\nexecute: \n  eval: true\n  echo: true\n  freeze: true\n  warning: false\n---\n\n\n# **Take-home Exercise 2: Application of Geospatial Analysis Methods to Discover Thailand Drug Abuse at the Province Level**\n\n### Packages\n\n*package summary here*\n\n\n::: {.cell}\n\n```{.r .cell-code}\npacman::p_load(sfdep, tidyverse, sf, tmap, lubridate, spatstat, raster, sparr)\n```\n:::\n\n\n### Drug Offenses Data Import\n\n\n::: {.cell}\n\n```{.r .cell-code}\ndrug <- read_csv(\"data/2data/thai_drug_offenses_2017_2022.csv\")\n```\n:::\n\n\n### Administrative Boundaries Import\n\n\n::: {.cell}\n\n```{.r .cell-code}\nthai <- st_read(dsn=\"data/2data/e/tha_admbnda_adm1_rtsd_20220121.shp\")\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\nReading layer `tha_admbnda_adm1_rtsd_20220121' from data source \n  `C:\\Users\\thevi\\OneDrive\\Desktop\\IS415\\IS415\\take-home\\data\\2data\\e\\tha_admbnda_adm1_rtsd_20220121.shp' \n  using driver `ESRI Shapefile'\nSimple feature collection with 77 features and 16 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: 97.34336 ymin: 5.613038 xmax: 105.637 ymax: 20.46507\nGeodetic CRS:  WGS 84\n```\n\n\n:::\n:::\n\n\n### Relational Join\n\n\n::: {.cell}\n\n```{.r .cell-code}\nthai <- thai %>% rename(Province = ADM1_EN)\ndrug <- drug %>% rename(Province = province_en)\n\nthai_drug <- left_join(thai, drug)\n```\n:::\n\n\n## Perform global spatial autocorrelation analysis by using [sfdep methods](https://is415-gaa-tskam.netlify.app/in-class_ex/in-class_ex05/in-class_ex05-glsa).\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

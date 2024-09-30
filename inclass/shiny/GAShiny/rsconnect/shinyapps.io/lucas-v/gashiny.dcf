@@ -1,0 +1,10 @@
+name: gashiny
+title:
+username: lucas-v
+account: lucas-v
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 12867765
+bundleId: 9161156
+url: https://lucas-v.shinyapps.io/gashiny/
+version: 1

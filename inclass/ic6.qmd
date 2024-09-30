@@ -36,7 +36,7 @@ Geary C, Z-Value. Describes how features differ from their immediate neighbours.
 
 \| \>1 - Dispersed \| \<1 - Clustered \| 1 - Random \|
 
-## Z-Score and P-Values 
+## Z-Score and P-Values
 
 Alpha value of 0.05, Null Hypothesis, lots of rambling about data timeliness and confidence levels/intervals.
 
@@ -44,17 +44,17 @@ Alpha value of 0.05, Null Hypothesis, lots of rambling about data timeliness and
 
 Overall concentration or lack of concentration in all pairs that are neighbours. The variable only takes postitive values. Cluster Detection.
 
-## Local Spatial Autocorrelation Statistics 
+## Local Spatial Autocorrelation Statistics
 
 Collection of geospatial statistical analysis methods to find location related tendency
 
-### LISA - Local Indicator of Spatial Association 
+### LISA - Local Indicator of Spatial Association
 
 Given a set of features and analysis field, the spatial statistics identify spatial clusters of features with high or low values. It also identifies spatial outliers.
 
 High-High \| High-Low \| Low-High \| Low-Low
 
-### Morans Local I 
+### Morans Local I
 
 Do this for the first step, its Moran's I, but local. You can then find their p-value to check if the correlation is statistically significant.
 
@@ -64,7 +64,7 @@ Only use the significant ones.
 
 **Break**
 
-## Course Announcements 
+## Course Announcements
 
 Take-Home Task 2 is due next week Sunday
 
@@ -74,7 +74,7 @@ Take-Home Task 2 is due next week Sunday
 
 -   **No Hands-On Excersise this week or next week**
 
-# In-Class 
+# In-Class
 
 [sfdep](https://sfdep.josiahparry.com/) package: list columns to make an interface
 
@@ -111,7 +111,7 @@ wm_q <- hunan_GDP %>%
 
 This adds a column with the neighbors for each row. c(2,3,4) = row 1 is n with 2,3,4
 
-### Computing Global Moran I 
+### Computing Global Moran I
 
 Calculate the Global Moran I, the output is a tibble data.frame. You don't normally do this in examples, more of a test :)
 
@@ -158,7 +158,7 @@ global_moran_perm(wm_q$GDPPC,
 
 Moran I, statistic is roughly the same, which proves that its stable. We know this because we ran it 100 times 😍
 
-### Computing Local Moran's I 
+### Computing Local Moran's I
 
 Here we compute the local Moran's I of GDPPC at county level by using the `local_moran` sfdep package.
 
@@ -178,7 +178,7 @@ This creates the lisa data.frame, with lots of helpful statistics, including wha
 
 -   Skewness can help you decide - high skew means you pick median
 
-### **Visualising local Morans I** 
+### **Visualising local Morans I**
 
 ```{r}
 tmap_mode("plot")
@@ -202,7 +202,7 @@ map2 <- tm_shape(lisa) +
 tmap_arrange(map1, map2, ncol = 2)
 ```
 
-### Lisa Map Visualization 
+### Lisa Map Visualization
 
 The LISA Map Visualization is a combination of the p significance level and local moran I, it will graph the Moran correlations when the significance meets its required level (null hypothesis)
 
@@ -220,7 +220,7 @@ tm_shape(lisa_sig) +
   tm_layout(main.title = "LISA map")
 ```
 
-## Hot and Cold Spot Analysis 
+## Hot and Cold Spot Analysis
 
 Computing Local G\* statistics (One with and without asterix)
 

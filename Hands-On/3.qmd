@@ -167,7 +167,7 @@ ESRI.WorldGrayCanvas.
 > interactive maps (i.e. not more than 10) in one RMarkdown document
 > when publish on Netlify.
 
-##  **4.5 Geospatial Data wrangling**
+## **4.5 Geospatial Data wrangling**
 
 Although simple feature data frame is gaining popularity again sp’s
 Spatial\* classes, there are, however, many geospatial analysis packages

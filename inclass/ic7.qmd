@@ -1,0 +1,63 @@
+---
+title: "In-class 7"
+author: "Lucas Vial"
+date: "Sep 30 2024"
+date-modified: "Date"
+execute: 
+  eval: false
+  echo: true
+  freeze: true
+  warning: false
+---
+
+# Web-Enabled Geospatial Analytics with R Shiny 
+
+Automated Data Analysis
+
+Rich Internet Applications (RIA)
+
+Shiny is the thing that makes your R code, turn to web-based
+
+-   Server Instructions (R)
+
+-   User Interface (HTML)
+
+```{r}
+library(shiny)
+runExample("01_hello")
+```
+
+Basic Shiny Skeleton
+
+```{r}
+library(shiny)
+
+ui <- fluidPage()
+
+# Define server logic required to draw a histogram
+server <- function(input, output) {}
+
+# Run the application 
+shinyApp(ui = ui, server = server)
+
+```
+
+Connecting to Shinyapps.io
+
+```{r}
+install.packages('rsconnect')
+```
+
+```{r}
+rsconnect::setAccountInfo(name='lucas-v', token='E44A25795BA5772DE670A9A12F3E60AB', secret='CmGPPaQGtlSmFkHoh8/NFUVG0JYjGRIVlz2UEwhN')
+
+```
+
+```{r}
+library(rsconnect)
+    rsconnect::deployApp('shiny/GAShiny')
+```
+
+Ok, I wasn't meant to do it like this - this is how it says to do it on the website, other way is rendering and hitting publish
+
+<https://lucas-v.shinyapps.io/gashiny/>

@@ -1,0 +1,44 @@
+---
+title: "Take Home 2"
+author: "Lucas Vial"
+date: "Sep 23 2024"
+date-modified: "Date"
+execute: 
+  eval: true
+  echo: true
+  freeze: true
+  warning: false
+---
+
+# **Take-home Exercise 2: Application of Geospatial Analysis Methods to Discover Thailand Drug Abuse at the Province Level**
+
+### Packages
+
+*package summary here*
+
+```{r}
+pacman::p_load(sfdep, tidyverse, sf, tmap, lubridate, spatstat, raster, sparr)
+```
+
+### Drug Offenses Data Import
+
+```{r}
+drug <- read_csv("data/2data/thai_drug_offenses_2017_2022.csv")
+```
+
+### Administrative Boundaries Import
+
+```{r}
+thai <- st_read(dsn="data/2data/e/tha_admbnda_adm1_rtsd_20220121.shp")
+```
+
+### Relational Join
+
+```{r}
+thai <- thai %>% rename(Province = ADM1_EN)
+drug <- drug %>% rename(Province = province_en)
+
+thai_drug <- left_join(thai, drug)
+```
+
+## Perform global spatial autocorrelation analysis by using [sfdep methods](https://is415-gaa-tskam.netlify.app/in-class_ex/in-class_ex05/in-class_ex05-glsa).
