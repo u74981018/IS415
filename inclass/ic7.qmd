@@ -10,7 +10,7 @@ execute:
   warning: false
 ---
 
-# Web-Enabled Geospatial Analytics with R Shiny 
+# Web-Enabled Geospatial Analytics with R Shiny
 
 Automated Data Analysis
 
