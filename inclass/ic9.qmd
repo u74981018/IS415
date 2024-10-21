@@ -1,0 +1,23 @@
+### WEEK 9
+
+Standardisation techniques
+
+-   Z-Score, for normal distribution
+
+-   Min max
+
+-   Decimal Scaling
+
+proximity matrix
+
+-   euclidean distance
+
+-   city block
+
+-   chebychev
+
+how many clusters
+
+-   gap statistic; compute a number for each no.
+
+Parralel Coordinates to label your clusters; this is actually very cool
