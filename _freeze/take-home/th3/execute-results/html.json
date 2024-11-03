@@ -1,0 +1,15 @@
+{
+  "hash": "32284bf008de0881eebe601583164000",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Take Home 3\"\nauthor: \"Lucas Vial\"\ndate: \"Nov 2 2024\"\ndate-modified: \"Date\"\nexecute: \n  eval: false\n  echo: true\n  freeze: true\n  warning: false\n---\n\n\n### Task Goals\n\nImport R Packages\n\nPrepare and Test R code so output is correct\n\nDetermine and prepare parameters and outputs for shiny\n\nselect appropriate shiny components\n\n### Shiny Imports\n\n\n::: {.cell}\n\n```{.r .cell-code}\ninstall.packages('rsconnect')\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nrsconnect::setAccountInfo(name='lucas-v', token='E44A25795BA5772DE670A9A12F3E60AB', secret='CmGPPaQGtlSmFkHoh8/NFUVG0JYjGRIVlz2UEwhN')\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(rsconnect)\n    rsconnect::deployApp('shiny/takehome3')\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\npacman::p_load(sfdep, tidyverse, sf, tmap)\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nadm1 <- readRDS(\"shiny/takehome3/data/papua_adm1.rds\")\nadm2 <- readRDS(\"shiny/takehome3/data/papua_adm2.rds\")\nps <- readRDS(\"shiny/takehome3/data/points_study.rds\")\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(shiny)\nrunApp(\"shiny/takehome3\")\n```\n:::\n\n\n### UI Design \n\nIts the same as the proposed design, Data ranges, bandwidth selection method, smooting kernel function, second-order analysis method, number of simulations and edge correction for monte carlo. The design has 2 visualizations with the KDE map and the monte carlo simulation.\n\n[https://lucas-v.shinyapps.io/takehome3](https://lucas-v.shinyapps.io/takehome3/)/\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

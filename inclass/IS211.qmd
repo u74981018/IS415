@@ -1,0 +1,17 @@
+## for class IS211, this is not related at all
+
+```{r}
+pacman::p_load(spdep, sp, tmap, sf, ClustGeo, cluster, factoextra, NbClust, tidyverse, GGally, ggplot2)
+```
+
+```{r}
+df <- read_csv("data/scenario1.csv")
+```
+
+```{r}
+summary(df)
+```
+
+```{r}
+stripchart(df)
+```

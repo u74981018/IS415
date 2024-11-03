@@ -73,7 +73,7 @@ dist <- st_distance(shan_sf, shan_sf)
 distmat <- as.dist(dist)
 ```
 
-## SKATER 
+## SKATER
 
 Nearest Neighbours/Creating the graph
 
@@ -173,4 +173,8 @@ ggparcoord(data = shan_sf_clustGeo,
            boxplot = TRUE,
            title = "Multiple Parallel Coordinates Plots of ICT Variables by Cluster") + facet_grid(~ clustGeo) +
   theme(axis.text.x = element_text(angle = 30))
+```
+
+```{r}
+
 ```

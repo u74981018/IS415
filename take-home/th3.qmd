@@ -1,0 +1,58 @@
+---
+title: "Take Home 3"
+author: "Lucas Vial"
+date: "Nov 2 2024"
+date-modified: "Date"
+execute: 
+  eval: false
+  echo: true
+  freeze: true
+  warning: false
+---
+
+### Task Goals
+
+Import R Packages
+
+Prepare and Test R code so output is correct
+
+Determine and prepare parameters and outputs for shiny
+
+select appropriate shiny components
+
+### Shiny Imports
+
+```{r}
+install.packages('rsconnect')
+```
+
+```{r}
+rsconnect::setAccountInfo(name='lucas-v', token='E44A25795BA5772DE670A9A12F3E60AB', secret='CmGPPaQGtlSmFkHoh8/NFUVG0JYjGRIVlz2UEwhN')
+```
+
+```{r}
+library(rsconnect)
+    rsconnect::deployApp('shiny/takehome3')
+```
+
+```{r}
+pacman::p_load(sfdep, tidyverse, sf, tmap)
+
+```
+
+```{r}
+adm1 <- readRDS("shiny/takehome3/data/papua_adm1.rds")
+adm2 <- readRDS("shiny/takehome3/data/papua_adm2.rds")
+ps <- readRDS("shiny/takehome3/data/points_study.rds")
+```
+
+```{r}
+library(shiny)
+runApp("shiny/takehome3")
+```
+
+### UI Design 
+
+Its the same as the proposed design, Data ranges, bandwidth selection method, smooting kernel function, second-order analysis method, number of simulations and edge correction for monte carlo. The design has 2 visualizations with the KDE map and the monte carlo simulation.
+
+[https://lucas-v.shinyapps.io/takehome3](https://lucas-v.shinyapps.io/takehome3/)/

@@ -593,5 +593,26 @@
     "title": "Take Home 2",
     "section": "",
     "text": "package summary here\n\npacman::p_load(sfdep, tidyverse, sf, tmap, lubridate, spatstat, raster, sparr)\n\n\n\n\n\ndrug &lt;- read_csv(\"data/2data/thai_drug_offenses_2017_2022.csv\")\n\n\n\n\n\nthai &lt;- st_read(dsn=\"data/2data/e/tha_admbnda_adm1_rtsd_20220121.shp\")\n\nReading layer `tha_admbnda_adm1_rtsd_20220121' from data source \n  `C:\\Users\\thevi\\OneDrive\\Desktop\\IS415\\IS415\\take-home\\data\\2data\\e\\tha_admbnda_adm1_rtsd_20220121.shp' \n  using driver `ESRI Shapefile'\nSimple feature collection with 77 features and 16 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: 97.34336 ymin: 5.613038 xmax: 105.637 ymax: 20.46507\nGeodetic CRS:  WGS 84\n\n\n\n\n\n\nthai &lt;- thai %&gt;% rename(Province = ADM1_EN)\ndrug &lt;- drug %&gt;% rename(Province = province_en)\n\nthai_drug &lt;- left_join(thai, drug)"
+  },
+  {
+    "objectID": "take-home/th3.html",
+    "href": "take-home/th3.html",
+    "title": "Take Home 3",
+    "section": "",
+    "text": "Task Goals\nImport R Packages\nPrepare and Test R code so output is correct\nDetermine and prepare parameters and outputs for shiny\nselect appropriate shiny components\n\n\nShiny Imports\n\ninstall.packages('rsconnect')\n\n\nrsconnect::setAccountInfo(name='lucas-v', token='E44A25795BA5772DE670A9A12F3E60AB', secret='CmGPPaQGtlSmFkHoh8/NFUVG0JYjGRIVlz2UEwhN')\n\n\nlibrary(rsconnect)\n    rsconnect::deployApp('shiny/takehome3')\n\n\npacman::p_load(sfdep, tidyverse, sf, tmap)\n\n\nadm1 &lt;- readRDS(\"shiny/takehome3/data/papua_adm1.rds\")\nadm2 &lt;- readRDS(\"shiny/takehome3/data/papua_adm2.rds\")\nps &lt;- readRDS(\"shiny/takehome3/data/points_study.rds\")\n\n\nlibrary(shiny)\nrunApp(\"shiny/takehome3\")\n\n\n\nUI Design\nIts the same as the proposed design, Data ranges, bandwidth selection method, smooting kernel function, second-order analysis method, number of simulations and edge correction for monte carlo. The design has 2 visualizations with the KDE map and the monte carlo simulation.\nhttps://lucas-v.shinyapps.io/takehome3/"
+  },
+  {
+    "objectID": "inclass/IS211.html",
+    "href": "inclass/IS211.html",
+    "title": "IS415",
+    "section": "",
+    "text": "pacman::p_load(spdep, sp, tmap, sf, ClustGeo, cluster, factoextra, NbClust, tidyverse, GGally, ggplot2)\n\n\ndf &lt;- read_csv(\"data/scenario1.csv\")\n\nRows: 30 Columns: 3\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\ndbl (3): participant, before, after\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\n\nsummary(df)\n\n  participant        before         after       \n Min.   : 1.00   Min.   : 5.0   Min.   : 2.000  \n 1st Qu.: 8.25   1st Qu.: 7.0   1st Qu.: 5.250  \n Median :15.50   Median : 9.0   Median : 6.500  \n Mean   :15.50   Mean   : 9.7   Mean   : 7.767  \n 3rd Qu.:22.75   3rd Qu.:12.0   3rd Qu.: 9.000  \n Max.   :30.00   Max.   :16.0   Max.   :20.000  \n\n\n\nstripchart(df)"
+  },
+  {
+    "objectID": "inclass/IS211.html#for-class-is211-this-is-not-related-at-all",
+    "href": "inclass/IS211.html#for-class-is211-this-is-not-related-at-all",
+    "title": "IS415",
+    "section": "",
+    "text": "pacman::p_load(spdep, sp, tmap, sf, ClustGeo, cluster, factoextra, NbClust, tidyverse, GGally, ggplot2)\n\n\ndf &lt;- read_csv(\"data/scenario1.csv\")\n\nRows: 30 Columns: 3\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\ndbl (3): participant, before, after\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\n\nsummary(df)\n\n  participant        before         after       \n Min.   : 1.00   Min.   : 5.0   Min.   : 2.000  \n 1st Qu.: 8.25   1st Qu.: 7.0   1st Qu.: 5.250  \n Median :15.50   Median : 9.0   Median : 6.500  \n Mean   :15.50   Mean   : 9.7   Mean   : 7.767  \n 3rd Qu.:22.75   3rd Qu.:12.0   3rd Qu.: 9.000  \n Max.   :30.00   Max.   :16.0   Max.   :20.000  \n\n\n\nstripchart(df)"
   }
 ]

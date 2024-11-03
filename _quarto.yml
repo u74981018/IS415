@@ -36,6 +36,8 @@ website:
           href: "inclass/ic6.html"
     - text: "Take Home 1"
       href: "take-home/th1.html"
+    - text: "Take Home 3"
+      href: "take-home/th3.html"
 format:
   html:
     theme: cosmo
