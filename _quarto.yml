@@ -38,6 +38,8 @@ website:
       href: "take-home/th1.html"
     - text: "Take Home 3"
       href: "take-home/th3.html"
+    - text: "Take Home 2"
+      href: "take-home/th2.html"
 format:
   html:
     theme: cosmo

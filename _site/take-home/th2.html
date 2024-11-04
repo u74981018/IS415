@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Lucas Vial">
-<meta name="dcterms.date" content="2024-09-23">
+<meta name="dcterms.date" content="2024-10-13">
 
 <title>IS415 - Take Home 2</title>
 <style>
@@ -198,6 +198,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../take-home/th3.html"> 
 <span class="menu-text">Take Home 3</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../take-home/th2.html" aria-current="page"> 
+<span class="menu-text">Take Home 2</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
@@ -214,13 +218,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#take-home-exercise-2-application-of-geospatial-analysis-methods-to-discover-thailand-drug-abuse-at-the-province-level" id="toc-take-home-exercise-2-application-of-geospatial-analysis-methods-to-discover-thailand-drug-abuse-at-the-province-level" class="nav-link active" data-scroll-target="#take-home-exercise-2-application-of-geospatial-analysis-methods-to-discover-thailand-drug-abuse-at-the-province-level"><strong>Take-home Exercise 2: Application of Geospatial Analysis Methods to Discover Thailand Drug Abuse at the Province Level</strong></a>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"></a></li>
+  <li><a href="#take-home-exercise-2-application-of-geospatial-analysis-methods-to-discover-thailand-drug-abuse-at-the-province-level" id="toc-take-home-exercise-2-application-of-geospatial-analysis-methods-to-discover-thailand-drug-abuse-at-the-province-level" class="nav-link" data-scroll-target="#take-home-exercise-2-application-of-geospatial-analysis-methods-to-discover-thailand-drug-abuse-at-the-province-level"><strong>Take-home Exercise 2: Application of Geospatial Analysis Methods to Discover Thailand Drug Abuse at the Province Level</strong></a>
   <ul class="collapse">
   <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
   <li><a href="#drug-offenses-data-import" id="toc-drug-offenses-data-import" class="nav-link" data-scroll-target="#drug-offenses-data-import">Drug Offenses Data Import</a></li>
   <li><a href="#administrative-boundaries-import" id="toc-administrative-boundaries-import" class="nav-link" data-scroll-target="#administrative-boundaries-import">Administrative Boundaries Import</a></li>
   <li><a href="#relational-join" id="toc-relational-join" class="nav-link" data-scroll-target="#relational-join">Relational Join</a></li>
-  <li><a href="#perform-global-spatial-autocorrelation-analysis-by-using-sfdep-methods." id="toc-perform-global-spatial-autocorrelation-analysis-by-using-sfdep-methods." class="nav-link" data-scroll-target="#perform-global-spatial-autocorrelation-analysis-by-using-sfdep-methods.">Perform global spatial autocorrelation analysis by using&nbsp;sfdep methods.</a></li>
+  <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling">Data Wrangling</a></li>
+  <li><a href="#perform-global-spatial-autocorrelation-analysis-by-using-sfdep-methods." id="toc-perform-global-spatial-autocorrelation-analysis-by-using-sfdep-methods." class="nav-link" data-scroll-target="#perform-global-spatial-autocorrelation-analysis-by-using-sfdep-methods.">Perform global spatial autocorrelation analysis by using&nbsp;sfdep methods.</a>
+  <ul class="collapse">
+  <li><a href="#create-a-queens-contiguity-weights-matrix" id="toc-create-a-queens-contiguity-weights-matrix" class="nav-link" data-scroll-target="#create-a-queens-contiguity-weights-matrix">Create a Queens Contiguity Weights Matrix</a></li>
+  <li><a href="#compute-morans-i" id="toc-compute-morans-i" class="nav-link" data-scroll-target="#compute-morans-i">Compute Moran’s I</a></li>
+  <li><a href="#performing-global-morans-i-test" id="toc-performing-global-morans-i-test" class="nav-link" data-scroll-target="#performing-global-morans-i-test"><strong>Performing Global Moran’s I Test</strong></a></li>
+  <li><a href="#permutation-test" id="toc-permutation-test" class="nav-link" data-scroll-target="#permutation-test">Permutation Test</a></li>
+  </ul></li>
+  <li><a href="#using-the-extracted-data-perform-local-spatial-autocorrelation-analysis-by-using-sfdep-methods." id="toc-using-the-extracted-data-perform-local-spatial-autocorrelation-analysis-by-using-sfdep-methods." class="nav-link" data-scroll-target="#using-the-extracted-data-perform-local-spatial-autocorrelation-analysis-by-using-sfdep-methods.">Using the extracted data, perform local spatial autocorrelation analysis by using&nbsp;sfdep methods.</a>
+  <ul class="collapse">
+  <li><a href="#visualising-local-morans-i" id="toc-visualising-local-morans-i" class="nav-link" data-scroll-target="#visualising-local-morans-i"><strong>Visualising local Morans I</strong></a></li>
+  <li><a href="#lisa-map-visualisation" id="toc-lisa-map-visualisation" class="nav-link" data-scroll-target="#lisa-map-visualisation">Lisa Map Visualisation</a></li>
+  <li><a href="#hot-and-cold-spot-analysis" id="toc-hot-and-cold-spot-analysis" class="nav-link" data-scroll-target="#hot-and-cold-spot-analysis">Hot and Cold Spot Analysis</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#take-home-exercise-2-application-of-geospatial-analysis-methods-to-discover-thailand-drug-abuse-at-the-province-level-1" id="toc-take-home-exercise-2-application-of-geospatial-analysis-methods-to-discover-thailand-drug-abuse-at-the-province-level-1" class="nav-link" data-scroll-target="#take-home-exercise-2-application-of-geospatial-analysis-methods-to-discover-thailand-drug-abuse-at-the-province-level-1"><strong>Take-home Exercise 2: Application of Geospatial Analysis Methods to Discover Thailand Drug Abuse at the Province Level</strong></a>
+  <ul class="collapse">
+  <li><a href="#packages-1" id="toc-packages-1" class="nav-link" data-scroll-target="#packages-1">Packages</a></li>
+  <li><a href="#drug-offenses-data-import-1" id="toc-drug-offenses-data-import-1" class="nav-link" data-scroll-target="#drug-offenses-data-import-1">Drug Offenses Data Import</a></li>
+  <li><a href="#administrative-boundaries-import-1" id="toc-administrative-boundaries-import-1" class="nav-link" data-scroll-target="#administrative-boundaries-import-1">Administrative Boundaries Import</a></li>
+  <li><a href="#relational-join-1" id="toc-relational-join-1" class="nav-link" data-scroll-target="#relational-join-1">Relational Join</a></li>
+  <li><a href="#perform-global-spatial-autocorrelation-analysis-by-using-sfdep-methods.-1" id="toc-perform-global-spatial-autocorrelation-analysis-by-using-sfdep-methods.-1" class="nav-link" data-scroll-target="#perform-global-spatial-autocorrelation-analysis-by-using-sfdep-methods.-1">Perform global spatial autocorrelation analysis by using&nbsp;sfdep methods.</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -247,7 +273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 23, 2024</p>
+      <p class="date">13 October 2024</p>
     </div>
   </div>
   
@@ -265,13 +291,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="section" class="level1">
+<h1></h1>
+</section>
 <section id="take-home-exercise-2-application-of-geospatial-analysis-methods-to-discover-thailand-drug-abuse-at-the-province-level" class="level1">
 <h1><strong>Take-home Exercise 2: Application of Geospatial Analysis Methods to Discover Thailand Drug Abuse at the Province Level</strong></h1>
 <section id="packages" class="level3">
 <h3 class="anchored" data-anchor-id="packages">Packages</h3>
-<p><em>package summary here</em></p>
+<p>There are pointless packages here, however you never know when you’ll need something. Import for this project include:</p>
+<ul>
+<li><p><code>spdep</code> used for</p></li>
+<li><p><code>tmap</code> used for visualizations</p></li>
+</ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sfdep, tidyverse, sf, tmap, lubridate, spatstat, raster, sparr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sfdep, tidyverse, sf, tmap, lubridate, spatstat, raster, sparr, spdep)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="drug-offenses-data-import" class="level3">
@@ -298,15 +331,321 @@ Geodetic CRS:  WGS 84</code></pre>
 </section>
 <section id="relational-join" class="level3">
 <h3 class="anchored" data-anchor-id="relational-join">Relational Join</h3>
+<p>Do a left join on Thai and Drug to combine the Administrative Boundaries and Drug Data. Then only select necessary columns.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>thai <span class="ot">&lt;-</span> thai <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">Province =</span> ADM1_EN)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>drug <span class="ot">&lt;-</span> drug <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">Province =</span> province_en)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>thai_drug <span class="ot">&lt;-</span> <span class="fu">left_join</span>(thai, drug)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>thai_drug <span class="ot">&lt;-</span> <span class="fu">left_join</span>(thai, drug, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"ADM1_EN"</span> <span class="ot">=</span> <span class="st">"province_en"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">14</span><span class="sc">:</span><span class="dv">19</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="data-wrangling" class="level3">
+<h3 class="anchored" data-anchor-id="data-wrangling">Data Wrangling</h3>
+<p>Our data is now in theory ready to be analysed, however it won’t take us long to realize that our data is too poorly optimized to work in analysis, some data wrangling will help with that. There will be a few different version of the data set here for future use.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Used to calculate weights</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># It grabs one row for each province</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>thai_drug_unique <span class="ot">&lt;-</span> thai_drug <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ADM1_EN) <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Used in Morans I Test </span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Just grab 2022 data</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>morans_data <span class="ot">&lt;-</span> thai_drug[thai_drug<span class="sc">$</span>fiscal_year <span class="sc">==</span> <span class="dv">2022</span>, ]</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>morans_data <span class="ot">&lt;-</span> morans_data[morans_data<span class="sc">$</span>types_of_drug_offenses <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"drug_use_cases"</span>, <span class="st">"possession_cases"</span>, <span class="st">"possession_with_intent_to_distribute_cases"</span>, <span class="st">"trafficking_cases"</span>, <span class="st">"production_cases"</span>, <span class="st">"import_cases"</span>, <span class="st">"export_cases"</span>, <span class="st">"conspiracy_cases"</span>), ]</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>morans_data <span class="ot">&lt;-</span> morans_data[morans_data<span class="sc">$</span>types_of_drug_offenses <span class="sc">==</span> <span class="st">"drug_use_cases"</span>, ]</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Phuket has zero neighbours, it had to be removed for future steps</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>morans_data <span class="ot">&lt;-</span> morans_data <span class="sc">%&gt;%</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ADM1_EN <span class="sc">!=</span> <span class="st">"Phuket"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="perform-global-spatial-autocorrelation-analysis-by-using-sfdep-methods." class="level2">
 <h2 class="anchored" data-anchor-id="perform-global-spatial-autocorrelation-analysis-by-using-sfdep-methods.">Perform global spatial autocorrelation analysis by using&nbsp;<a href="https://is415-gaa-tskam.netlify.app/in-class_ex/in-class_ex05/in-class_ex05-glsa">sfdep methods</a>.</h2>
+<section id="create-a-queens-contiguity-weights-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-queens-contiguity-weights-matrix">Create a Queens Contiguity Weights Matrix</h3>
+<p><code>st_weights()</code> has three arguments</p>
+<ul>
+<li><p>nb: neighbour list objects</p></li>
+<li><p>style: W for row standardized weights, C globally standardised, U is C / n, S is variance-stabilised</p></li>
+<li><p>allow_zero: if true, assigns zero as lagged value to zone without neighbours</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>wm_q <span class="ot">&lt;-</span> morans_data <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">nb =</span> <span class="fu">st_contiguity</span>(geometry),</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">wt =</span> <span class="fu">st_weights</span>(nb, <span class="at">style =</span> <span class="st">"W"</span>),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">.before =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="compute-morans-i" class="level3">
+<h3 class="anchored" data-anchor-id="compute-morans-i">Compute Moran’s I</h3>
+<p>Calculate the Global Moran I, the output is a tibble data.frame.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>moranI <span class="ot">&lt;-</span> <span class="fu">global_moran</span>(wm_q<span class="sc">$</span>no_cases,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                       wm_q<span class="sc">$</span>nb,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                       wm_q<span class="sc">$</span>wt)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(moranI)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 2
+ $ I: num 0.199
+ $ K: num 3.83</code></pre>
+</div>
+</div>
+<ul>
+<li><p><code>I</code>: is Moran’s I</p></li>
+<li><p><code>K</code>: is the average number of Neighbors found</p></li>
+</ul>
+</section>
+<section id="performing-global-morans-i-test" class="level3">
+<h3 class="anchored" data-anchor-id="performing-global-morans-i-test"><strong>Performing Global Moran’s I Test</strong></h3>
+<p>This is the thing you want to run, instead of computing the stats, you want to perform a test with them. use <code>global_moran_test</code> as shown below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">global_moran_test</span>(wm_q<span class="sc">$</span>no_cases, wm_q<span class="sc">$</span>nb, wm_q<span class="sc">$</span>wt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Moran I test under randomisation
+
+data:  x  
+weights: listw    
+
+Moran I statistic standard deviate = 2.7036, p-value = 0.00343
+alternative hypothesis: greater
+sample estimates:
+Moran I statistic       Expectation          Variance 
+      0.198502468      -0.013698630       0.006160519 </code></pre>
+</div>
+</div>
+<p>Here we can see <code>p-value = 0.00343</code>, this is good because its lower than the confidence level of 0.05.</p>
+</section>
+<section id="permutation-test" class="level3">
+<h3 class="anchored" data-anchor-id="permutation-test">Permutation Test</h3>
+<p>Monte Carlo should be used to run the simulation. Its supported by sfdep.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set a seed for reproducibility</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Very Similar to the other test but using <code>global_moran_perm</code> and adding the nsim, which is set to 99 for how many times its going to be run through.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">global_moran_perm</span>(wm_q<span class="sc">$</span>no_cases, </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                  wm_q<span class="sc">$</span>nb, </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                  wm_q<span class="sc">$</span>wt, </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nsim =</span> <span class="dv">99</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Monte-Carlo simulation of Moran I
+
+data:  x 
+weights: listw  
+number of simulations + 1: 100 
+
+statistic = 0.1985, observed rank = 100, p-value &lt; 2.2e-16
+alternative hypothesis: two.sided</code></pre>
+</div>
+</div>
+<p>Here we can see that the Moran I is <code>statistic = 0.1985</code>, which is what we were getting in earlier tests. This means that after running the simulation 100 times you still get the same results, therefore we know that Moran I is stable.</p>
+</section>
+</section>
+<section id="using-the-extracted-data-perform-local-spatial-autocorrelation-analysis-by-using-sfdep-methods." class="level2">
+<h2 class="anchored" data-anchor-id="using-the-extracted-data-perform-local-spatial-autocorrelation-analysis-by-using-sfdep-methods.">Using the extracted data, perform local spatial autocorrelation analysis by using&nbsp;<a href="https://r4gdsa.netlify.app/chap10.html">sfdep methods</a>.</h2>
+<p>Here we compute the local Moran’s I of GDPPC at county level by using the <code>local_moran</code> sfdep package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>lisa <span class="ot">&lt;-</span> wm_q <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">local_moran =</span> <span class="fu">local_moran</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    no_cases , nb, wt, <span class="at">nsim =</span> <span class="dv">99</span>),</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">.before =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(local_moran)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This creates the lisa data.frame, with lots of helpful statistics, including what region is categorized as (HIGH/HIGH, p, var…..)</p>
+<ul>
+<li><p>Lots of p values in this df, It’s reccomended that you stick with the same one. (Use p_ii_sim, this will make it the same as your simulation)</p></li>
+<li><p>With the HIGH/LOW columns, the mean and media ones are the important ones.</p></li>
+<li><p>Skewness can help you decide - high skew means you should pick the median</p></li>
+</ul>
+<section id="visualising-local-morans-i" class="level3">
+<h3 class="anchored" data-anchor-id="visualising-local-morans-i"><strong>Visualising local Morans I</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">"plot"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Map 1: Local Moran I</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>map1 <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(lisa) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="st">"ii"</span>, </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette =</span> <span class="st">"-RdYlBu"</span>,  <span class="co"># Reverse RdYlBu color palette for contrast</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"Moran's I"</span>) <span class="sc">+</span>  <span class="co"># Add title to legend</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">col =</span> <span class="st">"gray40"</span>, <span class="at">lwd =</span> <span class="fl">0.8</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span>  <span class="co"># Thicker, slightly transparent borders</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">main.title =</span> <span class="st">"Local Moran's I"</span>, </span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">main.title.size =</span> <span class="fl">1.2</span>,  <span class="co"># Increase title size</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">main.title.position =</span> <span class="st">"center"</span>,  <span class="co"># Center the title</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">frame =</span> <span class="cn">FALSE</span>)  <span class="co"># Remove frame</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Map 2: Significance Level</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>map2 <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(lisa) <span class="sc">+</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="st">"p_ii_sim"</span>, </span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette =</span> <span class="st">"YlOrRd"</span>,  <span class="co"># Use a sequential palette for significance</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"Significance Level"</span>, </span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"fixed"</span>,  <span class="co"># Fix color breakpoints if needed</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>          <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>, <span class="dv">1</span>),  <span class="co"># Significance thresholds</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>          <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"&lt;0.01"</span>, <span class="st">"0.01-0.05"</span>, <span class="st">"0.05-0.1"</span>, <span class="st">"&gt;0.1"</span>)) <span class="sc">+</span>  <span class="co"># Label significance levels</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">col =</span> <span class="st">"gray40"</span>, <span class="at">lwd =</span> <span class="fl">0.8</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span>  <span class="co"># Same border styling</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">main.title =</span> <span class="st">"Significance Level"</span>, </span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>            <span class="at">main.title.size =</span> <span class="fl">1.2</span>, </span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>            <span class="at">main.title.position =</span> <span class="st">"center"</span>, </span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>            <span class="at">frame =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrange maps side by side</span></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_arrange</span>(map1, map2, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">outer.margins =</span> <span class="fl">0.01</span>)  <span class="co"># Adjust aspect ratio and margins</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="th2_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="lisa-map-visualisation" class="level3">
+<h3 class="anchored" data-anchor-id="lisa-map-visualisation">Lisa Map Visualisation</h3>
+<p>The LISA Map Visualization is a combination of the p significance level and local moran I, it will graph the Moran correlations when the significance meets its required level (null hypothesis)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>lisa_sig <span class="ot">&lt;-</span> lisa <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p_ii <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(lisa)<span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>()<span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha=</span><span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(lisa_sig) <span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="st">"mean"</span>)<span class="sc">+</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha=</span><span class="fl">0.4</span>)<span class="sc">+</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">main.title =</span> <span class="st">"LISA map"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="th2_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="hot-and-cold-spot-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="hot-and-cold-spot-analysis">Hot and Cold Spot Analysis</h3>
+<p>Compute Local G* Statistic</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>wm_idw <span class="ot">&lt;-</span> morans_data <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">nb =</span> <span class="fu">st_contiguity</span>(geometry),</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">wts =</span> <span class="fu">st_inverse_distance</span>(nb, geometry,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">scale =</span> <span class="dv">1</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">alpha =</span> <span class="dv">1</span>),</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">.before =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In a similar way to LISA/Moran</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>HCSA <span class="ot">&lt;-</span> wm_idw <span class="sc">%&gt;%</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">local_Gi =</span> <span class="fu">local_gstar_perm</span>(</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    no_cases, nb, wt, <span class="at">nsim =</span> <span class="dv">99</span>),</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.before =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(local_Gi)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>HCSA</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 74 features and 21 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: 97.34336 ymin: 5.613038 xmax: 105.637 ymax: 20.46507
+Geodetic CRS:  WGS 84
+# A tibble: 74 × 22
+   gi_star cluster   e_gi     var_gi std_dev p_value p_sim p_folded_sim skewness
+     &lt;dbl&gt; &lt;fct&gt;    &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;
+ 1 -0.355  High    0.0150 0.00000832 -0.942    0.346  0.4          0.2     0.115
+ 2  0.612  High    0.0140 0.0000145   0.705    0.481  0.42         0.21    0.577
+ 3  0.0231 Low     0.0117 0.0000132   0.511    0.609  0.56         0.28    0.372
+ 4 -0.621  Low     0.0129 0.00000979 -0.458    0.647  0.72         0.36    0.820
+ 5 -1.09   Low     0.0132 0.0000116  -0.969    0.333  0.28         0.14    0.432
+ 6 -1.28   Low     0.0122 0.0000182  -1.05     0.293  0.32         0.16    0.336
+ 7 -1.66   Low     0.0123 0.0000155  -1.38     0.168  0.14         0.07    0.427
+ 8 -1.80   Low     0.0116 0.0000147  -1.38     0.167  0.12         0.06    0.726
+ 9 -0.125  Low     0.0121 0.0000105   0.269    0.788  0.64         0.32    0.756
+10  0.639  High    0.0163 0.0000150   0.0346   0.972  0.98         0.49    0.284
+# ℹ 64 more rows
+# ℹ 13 more variables: kurtosis &lt;dbl&gt;, nb &lt;nb&gt;, wts &lt;list&gt;, Shape_Leng &lt;dbl&gt;,
+#   Shape_Area &lt;dbl&gt;, ADM1_EN &lt;chr&gt;, date &lt;date&gt;, validOn &lt;date&gt;,
+#   validTo &lt;date&gt;, fiscal_year &lt;dbl&gt;, types_of_drug_offenses &lt;chr&gt;,
+#   no_cases &lt;dbl&gt;, geometry &lt;MULTIPOLYGON [°]&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(HCSA)<span class="sc">+</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="st">"gi_star"</span>)<span class="sc">+</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha=</span><span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">main.title =</span> <span class="st">"G* Statistic"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="th2_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>HCSA_sig <span class="ot">&lt;-</span> HCSA <span class="sc">%&gt;%</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p_sim <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(HCSA)<span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>()<span class="sc">+</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha=</span><span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(HCSA_sig)<span class="sc">+</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="st">"gi_star"</span>)<span class="sc">+</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha=</span><span class="fl">0.4</span>) <span class="sc">+</span> </span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">main.title =</span> <span class="st">"G* (Significant)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="th2_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="take-home-exercise-2-application-of-geospatial-analysis-methods-to-discover-thailand-drug-abuse-at-the-province-level-1" class="level1">
+<h1><strong>Take-home Exercise 2: Application of Geospatial Analysis Methods to Discover Thailand Drug Abuse at the Province Level</strong></h1>
+<section id="packages-1" class="level3">
+<h3 class="anchored" data-anchor-id="packages-1">Packages</h3>
+<p><em>package summary here</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sfdep, tidyverse, sf, tmap, lubridate, spatstat, raster, sparr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="drug-offenses-data-import-1" class="level3">
+<h3 class="anchored" data-anchor-id="drug-offenses-data-import-1">Drug Offenses Data Import</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>drug <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/2data/thai_drug_offenses_2017_2022.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="administrative-boundaries-import-1" class="level3">
+<h3 class="anchored" data-anchor-id="administrative-boundaries-import-1">Administrative Boundaries Import</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>thai <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="at">dsn=</span><span class="st">"data/2data/e/tha_admbnda_adm1_rtsd_20220121.shp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reading layer `tha_admbnda_adm1_rtsd_20220121' from data source 
+  `C:\Users\thevi\OneDrive\Desktop\IS415\IS415\take-home\data\2data\e\tha_admbnda_adm1_rtsd_20220121.shp' 
+  using driver `ESRI Shapefile'
+Simple feature collection with 77 features and 16 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: 97.34336 ymin: 5.613038 xmax: 105.637 ymax: 20.46507
+Geodetic CRS:  WGS 84</code></pre>
+</div>
+</div>
+</section>
+<section id="relational-join-1" class="level3">
+<h3 class="anchored" data-anchor-id="relational-join-1">Relational Join</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>thai <span class="ot">&lt;-</span> thai <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">Province =</span> ADM1_EN)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>drug <span class="ot">&lt;-</span> drug <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">Province =</span> province_en)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>thai_drug <span class="ot">&lt;-</span> <span class="fu">left_join</span>(thai, drug)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="perform-global-spatial-autocorrelation-analysis-by-using-sfdep-methods.-1" class="level2">
+<h2 class="anchored" data-anchor-id="perform-global-spatial-autocorrelation-analysis-by-using-sfdep-methods.-1">Perform global spatial autocorrelation analysis by using&nbsp;<a href="https://is415-gaa-tskam.netlify.app/in-class_ex/in-class_ex05/in-class_ex05-glsa">sfdep methods</a>.</h2>
 
 
 </section>

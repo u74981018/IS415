@@ -51,7 +51,7 @@ library(shiny)
 runApp("shiny/takehome3")
 ```
 
-### UI Design 
+### UI Design
 
 Its the same as the proposed design, Data ranges, bandwidth selection method, smooting kernel function, second-order analysis method, number of simulations and edge correction for monte carlo. The design has 2 visualizations with the KDE map and the monte carlo simulation.
 
