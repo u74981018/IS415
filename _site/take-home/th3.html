@@ -157,6 +157,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../Hands-On/6.html">
  <span class="dropdown-text">6</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-On/12.html">
+ <span class="dropdown-text">12</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -188,6 +192,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../inclass/ic6.html">
  <span class="dropdown-text">6</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../inclass/ic7.html">
+ <span class="dropdown-text">7</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../inclass/ic9.html">
+ <span class="dropdown-text">Week 9</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../inclass/ic10">
+ <span class="dropdown-text">Week 10</span></a>
+  </li>  
+        <li class="dropdown-header">Sick Week 11</li>
+        <li>
+    <a class="dropdown-item" href="../inclass/ic12">
+ <span class="dropdown-text">Week 12</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item">
@@ -197,6 +218,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li class="nav-item">
     <a class="nav-link active" href="../take-home/th3.html" aria-current="page"> 
 <span class="menu-text">Take Home 3</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../take-home/th2.html"> 
+<span class="menu-text">Take Home 2</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -215,8 +240,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#task-goals" id="toc-task-goals" class="nav-link active" data-scroll-target="#task-goals">Task Goals</a></li>
-  <li><a href="#shiny-imports" id="toc-shiny-imports" class="nav-link" data-scroll-target="#shiny-imports">Shiny Imports</a></li>
-  <li><a href="#ui-design" id="toc-ui-design" class="nav-link" data-scroll-target="#ui-design">UI Design</a></li>
+  <li><a href="#import-r-packages" id="toc-import-r-packages" class="nav-link" data-scroll-target="#import-r-packages">Import R Packages</a>
+  <ul class="collapse">
+  <li><a href="#import-data" id="toc-import-data" class="nav-link" data-scroll-target="#import-data">Import Data</a></li>
+  </ul></li>
+  <li><a href="#shiny-storyboard" id="toc-shiny-storyboard" class="nav-link" data-scroll-target="#shiny-storyboard">Shiny Storyboard</a>
+  <ul class="collapse">
+  <li><a href="#calibration-parameters" id="toc-calibration-parameters" class="nav-link" data-scroll-target="#calibration-parameters">Calibration Parameters</a></li>
+  </ul></li>
+  <li><a href="#stkde-animation" id="toc-stkde-animation" class="nav-link" data-scroll-target="#stkde-animation">STKDE Animation</a>
+  <ul class="collapse">
+  <li><a href="#contour-plot" id="toc-contour-plot" class="nav-link" data-scroll-target="#contour-plot">Contour Plot</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -265,39 +300,162 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Import R Packages</p>
 <p>Prepare and Test R code so output is correct</p>
 <p>Determine and prepare parameters and outputs for shiny</p>
-<p>select appropriate shiny components</p>
+<p>Select appropriate shiny components</p>
 </section>
-<section id="shiny-imports" class="level3">
-<h3 class="anchored" data-anchor-id="shiny-imports">Shiny Imports</h3>
+<section id="import-r-packages" class="level2">
+<h2 class="anchored" data-anchor-id="import-r-packages">Import R Packages</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'rsconnect'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sfdep, tidyverse, sf, tmap, lubridate, spatstat, dplyr, ggplot2, viridis, magick, raster, sparr, rmapshaper)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="import-data" class="level3">
+<h3 class="anchored" data-anchor-id="import-data">Import Data</h3>
+<p>Aspatial</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ps <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"data/3data/aspatial/points_study.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Geospatial</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>adm1 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"data/3data/geospatial/papua_adm1.rds"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>adm2 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"data/3data/geospatial/papua_adm2.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Both of these datasets have been fully prepared for use by my group member Immanuel</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">st_join</span>(adm2, ps, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"WADMPR"</span> <span class="ot">=</span> <span class="st">"admin2"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>rsconnect<span class="sc">::</span><span class="fu">setAccountInfo</span>(<span class="at">name=</span><span class="st">'lucas-v'</span>, <span class="at">token=</span><span class="st">'E44A25795BA5772DE670A9A12F3E60AB'</span>, <span class="at">secret=</span><span class="st">'CmGPPaQGtlSmFkHoh8/NFUVG0JYjGRIVlz2UEwhN'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rsconnect)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    rsconnect<span class="sc">::</span><span class="fu">deployApp</span>(<span class="st">'shiny/takehome3'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sfdep, tidyverse, sf, tmap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>adm1 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"shiny/takehome3/data/papua_adm1.rds"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>adm2 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"shiny/takehome3/data/papua_adm2.rds"</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>ps <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"shiny/takehome3/data/points_study.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">runApp</span>(<span class="st">"shiny/takehome3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data_cleaned <span class="ot">&lt;-</span> sf_polygon <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(WADMKK) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(area <span class="sc">==</span> <span class="fu">max</span>(area)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  ungro</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="ui-design" class="level3">
-<h3 class="anchored" data-anchor-id="ui-design">UI Design</h3>
-<p>Its the same as the proposed design, Data ranges, bandwidth selection method, smooting kernel function, second-order analysis method, number of simulations and edge correction for monte carlo. The design has 2 visualizations with the KDE map and the monte carlo simulation.</p>
-<p><a href="https://lucas-v.shinyapps.io/takehome3/">https://lucas-v.shinyapps.io/takehome3</a>/</p>
+</section>
+<section id="shiny-storyboard" class="level2">
+<h2 class="anchored" data-anchor-id="shiny-storyboard">Shiny Storyboard</h2>
+<p>This tab will allow the user to see a STKDE Animation with a Contour plot to help explain.</p>
+<p><img src="images/clipboard-2754455457.png" class="img-fluid"></p>
+<section id="calibration-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="calibration-parameters">Calibration Parameters</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 17%">
+<col style="width: 69%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Type</th>
+<th>Filter Options</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Study Area</td>
+<td>Multi-Select, Dropdown</td>
+<td><strong><code>All</code></strong>, <code>Papua</code>, <code>Papua Barat</code>, <code>Papua Barat Daya</code>, (Including every other Region and City)</td>
+</tr>
+<tr class="even">
+<td>Show STKDE by</td>
+<td>Radio Buttons</td>
+<td><code>Month</code>, <strong><code>Quarter</code></strong></td>
+</tr>
+<tr class="odd">
+<td>Year</td>
+<td><p>Multi-Select,</p>
+<p>Dropdown</p></td>
+<td><strong><code>All</code></strong> , <code>2015</code>, <code>2016</code>, <code>2017</code>, etc</td>
+</tr>
+</tbody>
+</table>
+<p>I’ve added a Year Filter Option Here, this was not included in the original proposal but I’ll include it here due to the animation taking a long time to generate with the entire dataset, I also wouldn’t be suprised if eventually I end up implementing a date range similar to the other pages in the proposal.</p>
+</section>
+</section>
+<section id="stkde-animation" class="level2">
+<h2 class="anchored" data-anchor-id="stkde-animation">STKDE Animation</h2>
+<p>Data Preparation</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert `event_date` to the dmy format using Lubridate</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>monthly_data <span class="ot">&lt;-</span> ps <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">event_date =</span> <span class="fu">dmy</span>(event_date))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Determine the first and last event dates</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>start_date <span class="ot">&lt;-</span> <span class="fu">min</span>(monthly_data<span class="sc">$</span>event_date, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>end_date <span class="ot">&lt;-</span> <span class="fu">max</span>(monthly_data<span class="sc">$</span>event_date, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the number of months between the first and last dates</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>num_months <span class="ot">&lt;-</span> <span class="fu">interval</span>(start_date, end_date) <span class="sc">%/%</span> <span class="fu">months</span>(<span class="dv">1</span>) <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a month number column to the data</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>monthly_data <span class="ot">&lt;-</span> monthly_data <span class="sc">%&gt;%</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month_no =</span> <span class="fu">interval</span>(start_date, event_date) <span class="sc">%/%</span> <span class="fu">months</span>(<span class="dv">1</span>) <span class="sc">+</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As is, the admin borders are really large and have a significant impact on runtime, this code simplifies them and makes them usable</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>adm2_window <span class="ot">&lt;-</span> <span class="fu">as.owin</span>(adm2)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>adm2_simplified <span class="ot">&lt;-</span> <span class="fu">ms_simplify</span>(adm2, <span class="at">keep =</span> <span class="fl">0.05</span>)  <span class="co"># Adjust `keep` as needed</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>adm2_window <span class="ot">&lt;-</span> <span class="fu">as.owin</span>(adm2_simplified)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Go Through each month in the data and create a STKDE plot, label it appropriately and place it in the designated folder</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the output directory for images</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>output_directory <span class="ot">&lt;-</span> <span class="st">"images/quarterly"</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop through each month to create Kernel Density Estimates (KDE)</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (month_index <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>num_months) {</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter data for the current month</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  current_month_data <span class="ot">&lt;-</span> monthly_data <span class="sc">%&gt;%</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(month_no <span class="sc">==</span> month_index)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Check if there are points to create KDE</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nrow</span>(current_month_data) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Convert the geometry to a ppp object</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>   montly_ppp <span class="ot">&lt;-</span> <span class="fu">as.ppp</span>(current_month_data)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>   monthly_owin <span class="ot">&lt;-</span> montly_ppp[adm2_window]</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>   kde <span class="ot">&lt;-</span> <span class="fu">density</span>(monthly_owin)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>   kde_raster <span class="ot">&lt;-</span> <span class="fu">raster</span>(kde)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>output_file <span class="ot">&lt;-</span> <span class="fu">file.path</span>(output_directory, <span class="fu">paste0</span>(<span class="st">"kde_month_"</span>, month_index, <span class="st">".png"</span>))</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Open a PNG device to save the plot</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="at">filename =</span> output_file, <span class="at">width =</span> <span class="dv">800</span>, <span class="at">height =</span> <span class="dv">600</span>)  <span class="co"># Adjust dimensions as needed</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the raster and add any customizations</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(kde_raster, <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Month:"</span>, month_index))</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">message</span>(<span class="fu">paste</span>(<span class="st">"No data available for month:"</span>, month_index))</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>From the previous folder, put all the plots into a GIF and save it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>folder_path <span class="ot">&lt;-</span> <span class="st">"images/quarterly"</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Get a list of all image files in the folder (e.g., PNG, JPG files)</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>image_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(folder_path, <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">.png$"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>image_files <span class="ot">&lt;-</span> image_files[<span class="fu">order</span>(<span class="fu">as.numeric</span>(<span class="fu">str_extract</span>(<span class="fu">basename</span>(image_files), <span class="st">"</span><span class="sc">\\</span><span class="st">d+"</span>)))]</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>images <span class="ot">&lt;-</span> <span class="fu">image_read</span>(image_files)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>gif <span class="ot">&lt;-</span> <span class="fu">image_animate</span>(images, <span class="at">fps =</span> <span class="dv">2</span>)  </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the GIF</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">image_write</span>(gif, <span class="at">path =</span> <span class="st">"output.gif"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="output.gif" class="img-fluid figure-img"></p>
+<figcaption>Gif Output</figcaption>
+</figure>
+</div>
+<p>I’ve not Implemented any of the Time or Space Filtering, but those will be simple to do. They will also pose different challenges when Implementing it in the shiny environment compared to a quarto doc.</p>
+<section id="contour-plot" class="level3">
+<h3 class="anchored" data-anchor-id="contour-plot">Contour Plot</h3>
+<p>The team has (since the project proposal) decided not to implement a contour plot. it was cited that the professor said that they aren’t that useful.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

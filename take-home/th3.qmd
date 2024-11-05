@@ -18,41 +18,150 @@ Prepare and Test R code so output is correct
 
 Determine and prepare parameters and outputs for shiny
 
-select appropriate shiny components
+Select appropriate shiny components
 
-### Shiny Imports
+## Import R Packages
 
 ```{r}
-install.packages('rsconnect')
+pacman::p_load(sfdep, tidyverse, sf, tmap, lubridate, spatstat, dplyr, ggplot2, viridis, magick, raster, sparr, rmapshaper)
+```
+
+### Import Data
+
+Aspatial
+
+```{r}
+ps <- readRDS("data/3data/aspatial/points_study.rds")
+```
+
+Geospatial
+
+```{r}
+adm1 <- readRDS("data/3data/geospatial/papua_adm1.rds")
+adm2 <- readRDS("data/3data/geospatial/papua_adm2.rds")
+```
+
+Both of these datasets have been fully prepared for use by my group member Immanuel
+
+```{r}
+#| eval: false
+data <- st_join(adm2, ps, by = c("WADMPR" = "admin2")) %>% 
+  dplyr::select(1:5, 1)
 ```
 
 ```{r}
-rsconnect::setAccountInfo(name='lucas-v', token='E44A25795BA5772DE670A9A12F3E60AB', secret='CmGPPaQGtlSmFkHoh8/NFUVG0JYjGRIVlz2UEwhN')
+#| eval: false
+data_cleaned <- sf_polygon %>%
+  group_by(WADMKK) %>%
+  filter(area == max(area)) %>%
+  ungro
 ```
+
+## Shiny Storyboard
+
+This tab will allow the user to see a STKDE Animation with a Contour plot to help explain.
+
+![](images/clipboard-2754455457.png)
+
+### Calibration Parameters
+
++----------------+------------------------+------------------------------------------------------------------------------------------------+
+| Parameter      | Type                   | Filter Options                                                                                 |
++================+========================+================================================================================================+
+| Study Area     | Multi-Select, Dropdown | **`All`**, `Papua`, `Papua Barat`, `Papua Barat Daya`, (Including every other Region and City) |
++----------------+------------------------+------------------------------------------------------------------------------------------------+
+| Show STKDE by  | Radio Buttons          | `Month`, **`Quarter`**                                                                         |
++----------------+------------------------+------------------------------------------------------------------------------------------------+
+| Year           | Multi-Select,          | **`All`** , `2015`, `2016`, `2017`, etc                                                        |
+|                |                        |                                                                                                |
+|                | Dropdown               |                                                                                                |
++----------------+------------------------+------------------------------------------------------------------------------------------------+
+
+I've added a Year Filter Option Here, this was not included in the original proposal but I'll include it here due to the animation taking a long time to generate with the entire dataset, I also wouldn't be suprised if eventually I end up implementing a date range similar to the other pages in the proposal.
+
+## STKDE Animation
+
+Data Preparation
 
 ```{r}
-library(rsconnect)
-    rsconnect::deployApp('shiny/takehome3')
+# Convert `event_date` to the dmy format using Lubridate
+monthly_data <- ps %>%
+  mutate(event_date = dmy(event_date))
+
+# Determine the first and last event dates
+start_date <- min(monthly_data$event_date, na.rm = TRUE)
+end_date <- max(monthly_data$event_date, na.rm = TRUE)
+
+# Calculate the number of months between the first and last dates
+num_months <- interval(start_date, end_date) %/% months(1) + 1
+
+# Add a month number column to the data
+monthly_data <- monthly_data %>%
+  mutate(month_no = interval(start_date, event_date) %/% months(1) + 1)
 ```
+
+As is, the admin borders are really large and have a significant impact on runtime, this code simplifies them and makes them usable
 
 ```{r}
-pacman::p_load(sfdep, tidyverse, sf, tmap)
-
+adm2_window <- as.owin(adm2)
+adm2_simplified <- ms_simplify(adm2, keep = 0.05)  # Adjust `keep` as needed
+adm2_window <- as.owin(adm2_simplified)
 ```
+
+Go Through each month in the data and create a STKDE plot, label it appropriately and place it in the designated folder
 
 ```{r}
-adm1 <- readRDS("shiny/takehome3/data/papua_adm1.rds")
-adm2 <- readRDS("shiny/takehome3/data/papua_adm2.rds")
-ps <- readRDS("shiny/takehome3/data/points_study.rds")
+# Set the output directory for images
+output_directory <- "images/quarterly"
+
+# Loop through each month to create Kernel Density Estimates (KDE)
+for (month_index in 1:num_months) {
+  # Filter data for the current month
+  current_month_data <- monthly_data %>%
+    filter(month_no == month_index)
+
+  # Check if there are points to create KDE
+  if (nrow(current_month_data) > 0) {
+    # Convert the geometry to a ppp object
+   montly_ppp <- as.ppp(current_month_data)
+   monthly_owin <- montly_ppp[adm2_window]
+   kde <- density(monthly_owin)
+   kde_raster <- raster(kde)
+    
+output_file <- file.path(output_directory, paste0("kde_month_", month_index, ".png"))
+
+# Open a PNG device to save the plot
+png(filename = output_file, width = 800, height = 600)  # Adjust dimensions as needed
+
+# Plot the raster and add any customizations
+plot(kde_raster, main = paste("Month:", month_index))
+dev.off()
+  } else {
+    message(paste("No data available for month:", month_index))
+  }
+}
 ```
+
+From the previous folder, put all the plots into a GIF and save it.
 
 ```{r}
-library(shiny)
-runApp("shiny/takehome3")
+folder_path <- "images/quarterly"
+
+# Get a list of all image files in the folder (e.g., PNG, JPG files)
+image_files <- list.files(folder_path, pattern = "\\.png$", full.names = TRUE)
+image_files <- image_files[order(as.numeric(str_extract(basename(image_files), "\\d+")))]
+
+images <- image_read(image_files)
+gif <- image_animate(images, fps = 2)  
+
+# Save the GIF
+image_write(gif, path = "output.gif")
 ```
 
-### UI Design
+![Gif Output](output.gif)
 
-Its the same as the proposed design, Data ranges, bandwidth selection method, smooting kernel function, second-order analysis method, number of simulations and edge correction for monte carlo. The design has 2 visualizations with the KDE map and the monte carlo simulation.
+I've not Implemented any of the Time or Space Filtering, but those will be simple to do. They will also pose different challenges when Implementing it in the shiny environment compared to a quarto doc.
 
-[https://lucas-v.shinyapps.io/takehome3](https://lucas-v.shinyapps.io/takehome3/)/
+### Contour Plot 
+
+The team has (since the project proposal) decided not to implement a contour plot. it was cited that the professor said that they aren't that useful.

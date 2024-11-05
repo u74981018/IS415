@@ -78,3 +78,20 @@ condo_resale_geocoded = left_join(
 #overlapping_points <- condo_resale_sf %>%
 #  mutate(overlap = lengths(st_equals(., .)) >  1)
 ```
+
+```{r}
+#| eval: false
+prov_sf <- st_read(dsn = "data", layer="adm1_rtsd_20220121") %>%
+  st_transform(crs=32)
+
+sf_polygon <- prov_sf %>%
+  st_cast("POLYGON") %>%
+  mutate(area = st_aread(.))
+
+prov_cleaned <- sf_polygon %>%
+  group_by(ADM1_EN) %>%
+  filter(area == max(area)) %>%
+  ungroup() %>%
+  select(-area) %>%
+  select(ADM1_EN)
+```
