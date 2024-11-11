@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.555">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Lucas Vial">
+<meta name="dcterms.date" content="2024-11-11">
+
+<title>IS415</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">IS415</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-hands-on" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Hands-On</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-hands-on">    
+        <li>
+    <a class="dropdown-item" href="../Hands-On/1.html">
+ <span class="dropdown-text">1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-On/2.html">
+ <span class="dropdown-text">2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-On/3.html">
+ <span class="dropdown-text">3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-On/5.html">
+ <span class="dropdown-text">5 (None in week 4)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-On/6.html">
+ <span class="dropdown-text">6</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-On/12.html">
+ <span class="dropdown-text">12</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-in-class" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">In-Class</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-in-class">    
+        <li>
+    <a class="dropdown-item" href="../inclass/ic1.html">
+ <span class="dropdown-text">1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../inclass/ic2.html">
+ <span class="dropdown-text">2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../inclass/ic3.html">
+ <span class="dropdown-text">3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../inclass/ic4.html">
+ <span class="dropdown-text">4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../inclass/ic5.html">
+ <span class="dropdown-text">5</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../inclass/ic6.html">
+ <span class="dropdown-text">6</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../inclass/ic7.html">
+ <span class="dropdown-text">7</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../inclass/ic9.html">
+ <span class="dropdown-text">Week 9</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../inclass/ic10">
+ <span class="dropdown-text">Week 10</span></a>
+  </li>  
+        <li class="dropdown-header">Sick Week 11</li>
+        <li>
+    <a class="dropdown-item" href="../inclass/ic12">
+ <span class="dropdown-text">Week 12</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../take-home/th1.html"> 
+<span class="menu-text">Take Home 1</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../take-home/th3.html"> 
+<span class="menu-text">Take Home 3</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../take-home/th2.html"> 
+<span class="menu-text">Take Home 2</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#week-13-class" id="toc-week-13-class" class="nav-link active" data-scroll-target="#week-13-class">Week 13 Class</a>
+  <ul class="collapse">
+  <li><a href="#predictive-modelling" id="toc-predictive-modelling" class="nav-link" data-scroll-target="#predictive-modelling">Predictive Modelling</a>
+  <ul class="collapse">
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
+  </ul></li>
+  <li><a href="#sampling-and-splitting-for-models" id="toc-sampling-and-splitting-for-models" class="nav-link" data-scroll-target="#sampling-and-splitting-for-models">sampling and splitting for models</a></li>
+  <li><a href="#model-output" id="toc-model-output" class="nav-link" data-scroll-target="#model-output">Model output</a></li>
+  <li><a href="#predictive-modelling-with-rf-method" id="toc-predictive-modelling-with-rf-method" class="nav-link" data-scroll-target="#predictive-modelling-with-rf-method">Predictive Modelling with RF method</a></li>
+  <li><a href="#predictive-modelling-with-spatial-ml" id="toc-predictive-modelling-with-spatial-ml" class="nav-link" data-scroll-target="#predictive-modelling-with-spatial-ml">Predictive Modelling with Spatial ML</a></li>
+  <li><a href="#variable-importance" id="toc-variable-importance" class="nav-link" data-scroll-target="#variable-importance">Variable Importance</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Lucas Vial </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 11, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="week-13-class" class="level1">
+<h1>Week 13 Class</h1>
+<section id="predictive-modelling" class="level2">
+<h2 class="anchored" data-anchor-id="predictive-modelling">Predictive Modelling</h2>
+<section id="packages" class="level3">
+<h3 class="anchored" data-anchor-id="packages">Packages</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(df, spdep, GWmodel, SpatialML, tmap, rsample, yardstick, tidyverse, knitr, kableExtra, spatitalRF, ggstatsplot, ranger)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mdata <span class="ot">=</span> <span class="fu">readRDS</span>(<span class="st">"data/mdata.RDS"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>HDB_sample <span class="ot">&lt;-</span> mdata <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">1500</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>overlapping_points <span class="ot">&lt;-</span> HDB_sample <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">overlap =</span> <span class="fu">lengths</span>(<span class="fu">st_equals</span>(., . )) <span class="sc">&gt;</span> <span class="dv">1</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(overlapping_points<span class="sc">$</span>overlap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Mode   FALSE    TRUE 
+logical    1047     453 </code></pre>
+</div>
+</div>
+<p>Spatial Jitter</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>HDB_sample <span class="ot">&lt;-</span> HDB_sample <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_jitter</span>(<span class="at">amount =</span> <span class="dv">5</span>) <span class="co">#no. meters of jitter</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="sampling-and-splitting-for-models" class="level2">
+<h2 class="anchored" data-anchor-id="sampling-and-splitting-for-models">sampling and splitting for models</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>resale_split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(HDB_sample,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">prop =</span> <span class="fl">6.67</span><span class="sc">/</span><span class="dv">10</span>,)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>train_data <span class="ot">&lt;-</span> <span class="fu">training</span>(resale_split)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> <span class="fu">testing</span>(resale_split)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Its a good Habit to start saving your data as rds</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># write_rds(train_data, "data/rds/train_data.rds")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Multicolinerarity check</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>mdata_nogeo <span class="ot">&lt;-</span> mdata <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggcorrmat</span>(mdata_nogeo[, <span class="dv">2</span><span class="sc">:</span><span class="dv">17</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ic13_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>gwr_bw_train_ad <span class="ot">&lt;-</span> <span class="fu">bw.gwr</span>(resale_price <span class="sc">~</span> floor_area_sqm <span class="sc">+</span> storey_order <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                          remaining_lease_mths <span class="sc">+</span> PROX_CBD <span class="sc">+</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                          PROX_ELDERLYCARE <span class="sc">+</span> PROX_HAWKER <span class="sc">+</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                          PROX_GOOD_PRISCH <span class="sc">+</span> PROX_MALL <span class="sc">+</span> PROX_CHAS <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                            PROX_SUPERMARKET <span class="sc">+</span> WITHIN_350M_KINDERGARTEN <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                            WITHIN_350M_CHILDCARE <span class="sc">+</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                          WITHIN_1KM_PRISCH,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>                          <span class="at">data=</span>train_data,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>                          <span class="at">approach=</span><span class="st">"CV"</span>,</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>                          <span class="at">kernel=</span><span class="st">"gaussian"</span>,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>                          <span class="at">adaptive=</span><span class="cn">TRUE</span>,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>                          <span class="at">longlat=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Adaptive bandwidth: 625 CV score: 3.66363e+12 
+Adaptive bandwidth: 394 CV score: 3.412143e+12 
+Adaptive bandwidth: 250 CV score: 3.052116e+12 
+Adaptive bandwidth: 162 CV score: 2.711192e+12 
+Adaptive bandwidth: 107 CV score: 2.356134e+12 
+Adaptive bandwidth: 73 CV score: 2.077005e+12 
+Adaptive bandwidth: 52 CV score: 1.883242e+12 
+Adaptive bandwidth: 39 CV score: 1.758101e+12 
+Adaptive bandwidth: 31 CV score: 1.641266e+12 
+Adaptive bandwidth: 26 CV score: 1.582404e+12 
+Adaptive bandwidth: 23 CV score: 1.529336e+12 
+Adaptive bandwidth: 21 CV score: 1.518322e+12 
+Adaptive bandwidth: 19 CV score: 1.498596e+12 
+Adaptive bandwidth: 19 CV score: 1.498596e+12 </code></pre>
+</div>
+</div>
+<p>model calibration</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>gwr_ad <span class="ot">&lt;-</span> <span class="fu">gwr.basic</span>(<span class="at">formula =</span> resale_price <span class="sc">~</span> floor_area_sqm <span class="sc">+</span> storey_order <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                          remaining_lease_mths <span class="sc">+</span> PROX_CBD <span class="sc">+</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                          PROX_ELDERLYCARE <span class="sc">+</span> PROX_HAWKER <span class="sc">+</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                          PROX_GOOD_PRISCH <span class="sc">+</span> PROX_MALL <span class="sc">+</span> PROX_CHAS <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                            PROX_SUPERMARKET <span class="sc">+</span> WITHIN_350M_KINDERGARTEN <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                            WITHIN_350M_CHILDCARE <span class="sc">+</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                          WITHIN_1KM_PRISCH,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>                          <span class="at">data=</span>train_data,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>                          <span class="at">bw=</span><span class="dv">20</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>                          <span class="at">kernel=</span><span class="st">"gaussian"</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                          <span class="at">adaptive=</span><span class="cn">TRUE</span>,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>                          <span class="at">longlat=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="model-output" class="level2">
+<h2 class="anchored" data-anchor-id="model-output">Model output</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>gwr_ad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   ***********************************************************************
+   *                       Package   GWmodel                             *
+   ***********************************************************************
+   Program starts at: 2024-11-11 11:16:24.540765 
+   Call:
+   gwr.basic(formula = resale_price ~ floor_area_sqm + storey_order + 
+    remaining_lease_mths + PROX_CBD + PROX_ELDERLYCARE + PROX_HAWKER + 
+    PROX_GOOD_PRISCH + PROX_MALL + PROX_CHAS + PROX_SUPERMARKET + 
+    WITHIN_350M_KINDERGARTEN + WITHIN_350M_CHILDCARE + WITHIN_1KM_PRISCH, 
+    data = train_data, bw = 20, kernel = "gaussian", adaptive = TRUE, 
+    longlat = FALSE)
+
+   Dependent (y) variable:  resale_price
+   Independent variables:  floor_area_sqm storey_order remaining_lease_mths PROX_CBD PROX_ELDERLYCARE PROX_HAWKER PROX_GOOD_PRISCH PROX_MALL PROX_CHAS PROX_SUPERMARKET WITHIN_350M_KINDERGARTEN WITHIN_350M_CHILDCARE WITHIN_1KM_PRISCH
+   Number of data points: 1000
+   ***********************************************************************
+   *                    Results of Global Regression                     *
+   ***********************************************************************
+
+   Call:
+    lm(formula = formula, data = data)
+
+   Residuals:
+    Min      1Q  Median      3Q     Max 
+-167111  -41591   -4672   36140  228878 
+
+   Coefficients:
+                             Estimate Std. Error t value Pr(&gt;|t|)    
+   (Intercept)               56497.31   34575.16   1.634 0.102569    
+   floor_area_sqm             2818.99     296.03   9.523  &lt; 2e-16 ***
+   storey_order              14500.98    1099.16  13.193  &lt; 2e-16 ***
+   remaining_lease_mths        365.26      15.08  24.226  &lt; 2e-16 ***
+   PROX_CBD                 -18103.92     732.90 -24.702  &lt; 2e-16 ***
+   PROX_ELDERLYCARE          -9363.65    3257.53  -2.874 0.004134 ** 
+   PROX_HAWKER              -20089.53    4199.51  -4.784 1.98e-06 ***
+   PROX_GOOD_PRISCH           2179.44    1054.46   2.067 0.039007 *  
+   PROX_MALL                -24227.31    6649.21  -3.644 0.000283 ***
+   PROX_CHAS                -51436.75   20627.04  -2.494 0.012806 *  
+   PROX_SUPERMARKET           6236.26   14172.61   0.440 0.660018    
+   WITHIN_350M_KINDERGARTEN  10645.99    2107.99   5.050 5.25e-07 ***
+   WITHIN_350M_CHILDCARE     -1462.40    1222.53  -1.196 0.231902    
+   WITHIN_1KM_PRISCH         -7714.11    1573.90  -4.901 1.11e-06 ***
+
+   ---Significance stars
+   Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+   Residual standard error: 62660 on 986 degrees of freedom
+   Multiple R-squared: 0.7257
+   Adjusted R-squared: 0.722 
+   F-statistic: 200.6 on 13 and 986 DF,  p-value: &lt; 2.2e-16 
+   ***Extra Diagnostic information
+   Residual sum of squares: 3.870726e+12
+   Sigma(hat): 62277.46
+   AIC:  24944.58
+   AICc:  24945.07
+   BIC:  24121.82
+   ***********************************************************************
+   *          Results of Geographically Weighted Regression              *
+   ***********************************************************************
+
+   *********************Model calibration information*********************
+   Kernel function: gaussian 
+   Adaptive bandwidth: 20 (number of nearest neighbours)
+   Regression points: the same locations as observations are used.
+   Distance metric: Euclidean distance metric is used.
+
+   ****************Summary of GWR coefficient estimates:******************
+                                   Min.     1st Qu.      Median     3rd Qu.
+   Intercept                -9033947.33  -895892.73   -94322.75   184700.25
+   floor_area_sqm              -3413.51     1140.08     1938.88     3412.56
+   storey_order                  657.43     7744.81    11261.89    14104.58
+   remaining_lease_mths         -341.47      311.09      420.22      539.64
+   PROX_CBD                  -675900.44   -35689.44   -12582.35    65815.57
+   PROX_ELDERLYCARE          -394126.40   -20470.75     1860.83    23191.74
+   PROX_HAWKER               -213597.41   -45774.50   -20815.23     1537.58
+   PROX_GOOD_PRISCH          -853782.43   -80161.87   -18355.85    18738.25
+   PROX_MALL                 -163950.54   -54890.13   -11510.44    27950.74
+   PROX_CHAS                 -169243.07   -63532.66   -27577.03    21981.72
+   PROX_SUPERMARKET          -383172.73   -45644.70    -3572.82    25733.89
+   WITHIN_350M_KINDERGARTEN   -42287.25    -7490.15     1085.78     6369.54
+   WITHIN_350M_CHILDCARE      -19973.71    -2558.21     1376.03     3869.32
+   WITHIN_1KM_PRISCH          -59787.86    -3624.79     4135.55     9818.85
+                                  Max.
+   Intercept                7117465.78
+   floor_area_sqm              8748.48
+   storey_order               23612.26
+   remaining_lease_mths         772.56
+   PROX_CBD                  922851.83
+   PROX_ELDERLYCARE          132157.08
+   PROX_HAWKER               169506.17
+   PROX_GOOD_PRISCH          547052.51
+   PROX_MALL                 198009.83
+   PROX_CHAS                 501181.10
+   PROX_SUPERMARKET          198325.79
+   WITHIN_350M_KINDERGARTEN   34091.48
+   WITHIN_350M_CHILDCARE      14751.40
+   WITHIN_1KM_PRISCH          22829.27
+   ************************Diagnostic information*************************
+   Number of data points: 1000 
+   Effective number of parameters (2trace(S) - trace(S'S)): 385.5473 
+   Effective degrees of freedom (n-2trace(S) + trace(S'S)): 614.4527 
+   AICc (GWR book, Fotheringham, et al. 2002, p. 61, eq 2.33): 24065.11 
+   AIC (GWR book, Fotheringham, et al. 2002,GWR p. 96, eq. 4.22): 23458.75 
+   BIC (GWR book, Fotheringham, et al. 2002,GWR p. 61, eq. 2.34): 24312.53 
+   Residual sum of squares: 659562152643 
+   R-square value:  0.953254 
+   Adjusted R-square value:  0.9238747 
+
+   ***********************************************************************
+   Program stops at: 2024-11-11 11:16:25.252606 </code></pre>
+</div>
+</div>
+<p>This is gonna take forever, but this is how you test your model. wait i think he was talking about something else….</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>gwr_pred <span class="ot">&lt;-</span> <span class="fu">gwr.predict</span>(<span class="at">formula =</span> resale_price <span class="sc">~</span> floor_area_sqm <span class="sc">+</span> storey_order <span class="sc">+</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                          remaining_lease_mths <span class="sc">+</span> PROX_CBD <span class="sc">+</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                          PROX_ELDERLYCARE <span class="sc">+</span> PROX_HAWKER <span class="sc">+</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                          PROX_GOOD_PRISCH <span class="sc">+</span> PROX_MALL <span class="sc">+</span> PROX_CHAS <span class="sc">+</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>                            PROX_SUPERMARKET <span class="sc">+</span> WITHIN_350M_KINDERGARTEN <span class="sc">+</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>                            WITHIN_350M_CHILDCARE <span class="sc">+</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>                          WITHIN_1KM_PRISCH,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>                          <span class="at">data=</span>train_data,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>                        <span class="at">predictdata =</span> test_data,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>                          <span class="at">bw=</span><span class="dv">20</span>,</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>                          <span class="at">kernel=</span><span class="st">"gaussian"</span>,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>                          <span class="at">adaptive=</span><span class="cn">TRUE</span>,</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>                          <span class="at">longlat=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>saving predicted values</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>gwr_pred_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  gwr_pred<span class="sc">$</span>SDF<span class="sc">$</span>prediction</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">gwr_pred =</span> <span class="st">"gwr_pred$SDF$prediction"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="predictive-modelling-with-rf-method" class="level2">
+<h2 class="anchored" data-anchor-id="predictive-modelling-with-rf-method">Predictive Modelling with RF method</h2>
+<p>showed us the ranger package - it doesnt work for spatial data</p>
+<p>for this; if using ? you may have to calculate centroids</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>coords <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(HDB_sample)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>coords_train <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(train_data)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>coords_test <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(test_data)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>train_data_nogeom <span class="ot">&lt;-</span> train_data <span class="sc">%&gt;%</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>rf <span class="ot">&lt;-</span> <span class="fu">ranger</span>(resale_price <span class="sc">~</span> floor_area_sqm <span class="sc">+</span> storey_order <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                          remaining_lease_mths <span class="sc">+</span> PROX_CBD <span class="sc">+</span> </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                          PROX_ELDERLYCARE <span class="sc">+</span> PROX_HAWKER <span class="sc">+</span> </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                          PROX_GOOD_PRISCH <span class="sc">+</span> PROX_MALL <span class="sc">+</span> PROX_CHAS <span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>                            PROX_SUPERMARKET <span class="sc">+</span> WITHIN_350M_KINDERGARTEN <span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>                            WITHIN_350M_CHILDCARE <span class="sc">+</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>                          WITHIN_1KM_PRISCH,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> train_data_nogeom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>model output</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>rf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Ranger result
+
+Call:
+ ranger(resale_price ~ floor_area_sqm + storey_order + remaining_lease_mths +      PROX_CBD + PROX_ELDERLYCARE + PROX_HAWKER + PROX_GOOD_PRISCH +      PROX_MALL + PROX_CHAS + PROX_SUPERMARKET + WITHIN_350M_KINDERGARTEN +      WITHIN_350M_CHILDCARE + WITHIN_1KM_PRISCH, data = train_data_nogeom) 
+
+Type:                             Regression 
+Number of trees:                  500 
+Sample size:                      1000 
+Number of independent variables:  13 
+Mtry:                             3 
+Target node size:                 5 
+Variable importance mode:         none 
+Splitrule:                        variance 
+OOB prediction error (MSE):       2342781298 
+R squared (OOB):                  0.8341229 </code></pre>
+</div>
+</div>
+<p>Preparing test data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>test_data_nogeom <span class="ot">&lt;-</span> <span class="fu">cbind</span>(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  test_data, coords_test) <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Predicting and saving</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>rf_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(rf, <span class="at">data =</span> test_data_nogeom)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>rf_pred_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(rf_pred<span class="sc">$</span>predictions) <span class="sc">%&gt;%</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">rf_pred =</span> <span class="st">"rf_pred$predictions"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="predictive-modelling-with-spatial-ml" class="level2">
+<h2 class="anchored" data-anchor-id="predictive-modelling-with-spatial-ml">Predictive Modelling with Spatial ML</h2>
+<p>determining bandwidth (FLEW by this inclass so this isn’t it at all)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>gwr_bw_train_ad <span class="ot">&lt;-</span> <span class="fu">bw.gwr</span>(resale_price <span class="sc">~</span> floor_area_sqm <span class="sc">+</span> storey_order <span class="sc">+</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                          remaining_lease_mths <span class="sc">+</span> PROX_CBD <span class="sc">+</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                          PROX_ELDERLYCARE <span class="sc">+</span> PROX_HAWKER <span class="sc">+</span> </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                          PROX_GOOD_PRISCH <span class="sc">+</span> PROX_MALL <span class="sc">+</span> PROX_CHAS <span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>                            PROX_SUPERMARKET <span class="sc">+</span> WITHIN_350M_KINDERGARTEN <span class="sc">+</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>                            WITHIN_350M_CHILDCARE <span class="sc">+</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>                          WITHIN_1KM_PRISCH,</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>                          <span class="at">data=</span>train_data,</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>                          <span class="at">approach=</span><span class="st">"CV"</span>,</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>                          <span class="at">kernel=</span><span class="st">"gaussian"</span>,</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>                          <span class="at">adaptive=</span><span class="cn">TRUE</span>,</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>                          <span class="at">longlat=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>calibrating the model</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>grf_ad <span class="ot">&lt;-</span> <span class="fu">grf</span>(<span class="at">formula =</span> resale_price <span class="sc">~</span> floor_area_sqm <span class="sc">+</span> storey_order <span class="sc">+</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                          remaining_lease_mths <span class="sc">+</span> PROX_CBD <span class="sc">+</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                          PROX_ELDERLYCARE <span class="sc">+</span> PROX_HAWKER <span class="sc">+</span> </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>                          PROX_GOOD_PRISCH <span class="sc">+</span> PROX_MALL <span class="sc">+</span> PROX_CHAS <span class="sc">+</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>                            PROX_SUPERMARKET <span class="sc">+</span> WITHIN_350M_KINDERGARTEN <span class="sc">+</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>                            WITHIN_350M_CHILDCARE <span class="sc">+</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>                          WITHIN_1KM_PRISCH,</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>                          <span class="at">dframe=</span>train_data_nogeom,</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>                          <span class="at">bw=</span><span class="dv">20</span>,</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>                          <span class="at">kernel=</span><span class="st">"adaptive"</span>,</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>                          <span class="at">coords=</span>coords_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Ranger result
+
+Call:
+ ranger(resale_price ~ floor_area_sqm + storey_order + remaining_lease_mths +      PROX_CBD + PROX_ELDERLYCARE + PROX_HAWKER + PROX_GOOD_PRISCH +      PROX_MALL + PROX_CHAS + PROX_SUPERMARKET + WITHIN_350M_KINDERGARTEN +      WITHIN_350M_CHILDCARE + WITHIN_1KM_PRISCH, data = train_data_nogeom,      num.trees = 500, mtry = 4, importance = "impurity", num.threads = NULL) 
+
+Type:                             Regression 
+Number of trees:                  500 
+Sample size:                      1000 
+Number of independent variables:  13 
+Mtry:                             4 
+Target node size:                 5 
+Variable importance mode:         impurity 
+Splitrule:                        variance 
+OOB prediction error (MSE):       2145222071 
+R squared (OOB):                  0.8481108 
+          floor_area_sqm             storey_order     remaining_lease_mths 
+            7.121287e+11             1.663446e+12             2.601549e+12 
+                PROX_CBD         PROX_ELDERLYCARE              PROX_HAWKER 
+            4.138975e+12             4.609557e+11             5.195355e+11 
+        PROX_GOOD_PRISCH                PROX_MALL                PROX_CHAS 
+            1.465084e+12             4.800807e+11             2.847678e+11 
+        PROX_SUPERMARKET WITHIN_350M_KINDERGARTEN    WITHIN_350M_CHILDCARE 
+            3.618960e+11             2.014212e+11             2.726077e+11 
+       WITHIN_1KM_PRISCH 
+            6.069468e+11 
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+-386112.0  -23213.3    -995.7    -365.3   20242.3  372312.5 
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+-52932.78  -2939.48   -106.79     39.45   2757.79  58177.47 
+                               Min          Max        Mean         StD
+floor_area_sqm                   0  90326315616  7484703498 13734951181
+storey_order              33377481 171437137430  6840154928 18313846260
+remaining_lease_mths     236986812 152690628194 17377613060 29741599965
+PROX_CBD                 139771571  99104858702  7792987375 12254445329
+PROX_ELDERLYCARE         132277977  74143725631  6084432902  8963958725
+PROX_HAWKER              169288128  74298078422  6097355230  9672974376
+PROX_GOOD_PRISCH         130736014  95902613984  7124297584 11783582473
+PROX_MALL                 81841673 113693386652  7365416045 12658831753
+PROX_CHAS                 97560391  62503579940  5107419560  7683227062
+PROX_SUPERMARKET         169447304  77107373697  5665782257 10163749215
+WITHIN_350M_KINDERGARTEN         0  67042064804  2102647227  5024830629
+WITHIN_350M_CHILDCARE     29792797  94650273883  4173303680  8449467739
+WITHIN_1KM_PRISCH                0  62003430312  1873964880  3649680456</code></pre>
+</div>
+</div>
+<p>Test Data Prep (Already Done)</p>
+<p>Predictions and Saving</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>grf_pred <span class="ot">&lt;-</span> <span class="fu">predict.grf</span>(grf_ad, </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                        test_data_nogeom,</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">x.var.name=</span><span class="st">"X"</span>,</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">y.var.name=</span><span class="st">"Y"</span>,</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">local.w=</span><span class="dv">1</span>,</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">global.w=</span><span class="dv">0</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>grf_pred_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(grf_pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Model Comparison</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>test_data_pred <span class="ot">&lt;-</span> test_data <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(resale_price) <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cbind</span>(gwr_pred_df) <span class="sc">%&gt;%</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cbind</span>(rf_pred_df) <span class="sc">%&gt;%</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cbind</span>(grf_pred_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Model Comparison Plots</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>test_longer <span class="ot">&lt;-</span> test_data_pred <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">col =</span> <span class="fu">ends_with</span>(<span class="st">"pred"</span>),</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"model"</span>,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"predicted"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Renaming all the things to be nice</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>rmse_results <span class="ot">&lt;-</span> test_longer <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(model) <span class="sc">%&gt;%</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rmse</span>(<span class="at">truth =</span> resale_price,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">estimate =</span> predicted) <span class="sc">%&gt;%</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">rmse =</span> .estimate) <span class="sc">%&gt;%</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(model, rmse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(rmse_results,</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(model, rmse),</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> rmse)) <span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="st">"blue"</span>,</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">color=</span><span class="st">"black"</span>,</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">width=</span><span class="fl">0.7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ic13_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>test_longer <span class="ot">&lt;-</span> test_longer <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(rmse_results,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="st">"model"</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> test_longer,</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> predicted,</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">y=</span> resale_price)) <span class="sc">+</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>model) <span class="sc">+</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ic13_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add RMSE to plot </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="variable-importance" class="level2">
+<h2 class="anchored" data-anchor-id="variable-importance">Variable Importance</h2>
+<p>which variables are more important to predictions</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>var_imp <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">names</span>(grf_ad<span class="sc">$</span>Global.Model<span class="sc">$</span>variable.importance),</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Importance =</span> grf_ad<span class="sc">$</span>Global.Model<span class="sc">$</span>variable.importance</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(var_imp,</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(Variable, Importance),</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y=</span>Importance)) <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>,</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill=</span><span class="st">"skyblue"</span>) <span class="sc">+</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ic13_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

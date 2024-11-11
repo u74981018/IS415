@@ -1,0 +1,67 @@
+```{r}
+library(rsconnect)
+rsconnect::deployApp('shiny/takehome3')
+setAccountInfo(name='lucas-v', token='E44A25795BA5772DE670A9A12F3E60AB', secret='CmGPPaQGtlSmFkHoh8/NFUVG0JYjGRIVlz2UEwhN')
+
+
+pacman::p_load(sfdep, tidyverse, sf, tmap)
+
+install.packages('rsconnect')
+
+
+```
+
+```{r}
+library(shiny) 
+runApp("shiny/takehome3")
+```
+
+```{r}
+# Aspatial Data
+ps <- readRDS("data/3data/aspatial/points_study.rds")
+
+# Geospatial Data 
+adm1 <- readRDS("data/adm1_window.rds")
+
+ps <- ps %>%
+  mutate(event_date = dmy(event_date))
+```
+
+```{r}
+years = c("2017", "2018", "2020")
+locs = c("West Papua")
+
+if(!("All" %in% years)){
+time_filtered_ps <- ps %>%
+  filter(year(event_date) == years)
+} else {
+time_filtered_ps <- ps
+}
+
+if(!("All" %in% locs)){
+filtered_ps <- time_filtered_ps %>%
+  filter(admin1 == locs)
+} else {
+  filtered_ps <- time_filtered_ps
+}
+```
+
+```{r}
+q = TRUE
+
+start_date <- min(filtered_ps$event_date, na.rm = TRUE)
+end_date <- max(filtered_ps$event_date, na.rm = TRUE)
+
+
+
+if(q){
+  # Quartely Logic
+} else {
+  # Monthly Logic
+}
+```
+
+```{r}
+pacman::p_load(sfdep, tidyverse, sf, tmap, lubridate, spatstat, dplyr, ggplot2, viridis, magick, raster, sparr, rmapshaper)
+```
+

@@ -43,20 +43,6 @@ adm2 <- readRDS("data/3data/geospatial/papua_adm2.rds")
 
 Both of these datasets have been fully prepared for use by my group member Immanuel
 
-```{r}
-#| eval: false
-data <- st_join(adm2, ps, by = c("WADMPR" = "admin2")) %>% 
-  dplyr::select(1:5, 1)
-```
-
-```{r}
-#| eval: false
-data_cleaned <- sf_polygon %>%
-  group_by(WADMKK) %>%
-  filter(area == max(area)) %>%
-  ungro
-```
-
 ## Shiny Storyboard
 
 This tab will allow the user to see a STKDE Animation with a Contour plot to help explain.
@@ -65,17 +51,17 @@ This tab will allow the user to see a STKDE Animation with a Contour plot to hel
 
 ### Calibration Parameters
 
-+----------------+------------------------+------------------------------------------------------------------------------------------------+
-| Parameter      | Type                   | Filter Options                                                                                 |
-+================+========================+================================================================================================+
-| Study Area     | Multi-Select, Dropdown | **`All`**, `Papua`, `Papua Barat`, `Papua Barat Daya`, (Including every other Region and City) |
-+----------------+------------------------+------------------------------------------------------------------------------------------------+
-| Show STKDE by  | Radio Buttons          | `Month`, **`Quarter`**                                                                         |
-+----------------+------------------------+------------------------------------------------------------------------------------------------+
-| Year           | Multi-Select,          | **`All`** , `2015`, `2016`, `2017`, etc                                                        |
-|                |                        |                                                                                                |
-|                | Dropdown               |                                                                                                |
-+----------------+------------------------+------------------------------------------------------------------------------------------------+
++---------------+------------------------+------------------------------------------------------------------------------------------------+
+| Parameter     | Type                   | Filter Options                                                                                 |
++===============+========================+================================================================================================+
+| Study Area    | Multi-Select, Dropdown | **`All`**, `Papua`, `Papua Barat`, `Papua Barat Daya`, (Including every other Region and City) |
++---------------+------------------------+------------------------------------------------------------------------------------------------+
+| Show STKDE by | Radio Buttons          | `Month`, **`Quarter`**                                                                         |
++---------------+------------------------+------------------------------------------------------------------------------------------------+
+| Year          | Multi-Select,          | **`All`** , `2015`, `2016`, `2017`, etc                                                        |
+|               |                        |                                                                                                |
+|               | Dropdown               |                                                                                                |
++---------------+------------------------+------------------------------------------------------------------------------------------------+
 
 I've added a Year Filter Option Here, this was not included in the original proposal but I'll include it here due to the animation taking a long time to generate with the entire dataset, I also wouldn't be suprised if eventually I end up implementing a date range similar to the other pages in the proposal.
 
@@ -103,9 +89,9 @@ monthly_data <- monthly_data %>%
 As is, the admin borders are really large and have a significant impact on runtime, this code simplifies them and makes them usable
 
 ```{r}
-adm2_window <- as.owin(adm2)
-adm2_simplified <- ms_simplify(adm2, keep = 0.05)  # Adjust `keep` as needed
+adm2_simplified <- ms_simplify(adm1, keep = 0.05)  # Adjust `keep` as needed
 adm2_window <- as.owin(adm2_simplified)
+saveRDS(adm2_window, "data/adm1_window.rds")
 ```
 
 Go Through each month in the data and create a STKDE plot, label it appropriately and place it in the designated folder
@@ -162,6 +148,6 @@ image_write(gif, path = "output.gif")
 
 I've not Implemented any of the Time or Space Filtering, but those will be simple to do. They will also pose different challenges when Implementing it in the shiny environment compared to a quarto doc.
 
-### Contour Plot 
+### Contour Plot
 
 The team has (since the project proposal) decided not to implement a contour plot. it was cited that the professor said that they aren't that useful.

@@ -1,0 +1,304 @@
+---
+author: "Lucas Vial"
+date: "Nov 11 2024"
+execute: 
+  eval: true
+  echo: true
+  freeze: true
+  warning: false
+---
+
+# Week 13 Class
+
+## Predictive Modelling
+
+### Packages
+
+```{r}
+pacman::p_load(df, spdep, GWmodel, SpatialML, tmap, rsample, yardstick, tidyverse, knitr, kableExtra, spatitalRF, ggstatsplot, ranger)
+```
+
+```{r}
+mdata = readRDS("data/mdata.RDS")
+```
+
+```{r}
+set.seed(1234)
+HDB_sample <- mdata %>%
+  sample_n(1500)
+```
+
+```{r}
+overlapping_points <- HDB_sample %>%
+  mutate(overlap = lengths(st_equals(., . )) > 1)
+summary(overlapping_points$overlap)
+```
+
+Spatial Jitter
+
+```{r}
+HDB_sample <- HDB_sample %>%
+  st_jitter(amount = 5) #no. meters of jitter
+```
+
+## sampling and splitting for models 
+
+```{r}
+resale_split <- initial_split(HDB_sample,
+                              prop = 6.67/10,)
+train_data <- training(resale_split)
+test_data <- testing(resale_split)
+
+# Its a good Habit to start saving your data as rds
+# write_rds(train_data, "data/rds/train_data.rds")
+```
+
+Multicolinerarity check
+
+```{r}
+#| fig-width: 10
+#| fig-height: 10
+mdata_nogeo <- mdata %>%
+  st_drop_geometry()
+ggcorrmat(mdata_nogeo[, 2:17])
+```
+
+```{r}
+gwr_bw_train_ad <- bw.gwr(resale_price ~ floor_area_sqm + storey_order +
+                          remaining_lease_mths + PROX_CBD + 
+                          PROX_ELDERLYCARE + PROX_HAWKER + 
+                          PROX_GOOD_PRISCH + PROX_MALL + PROX_CHAS +
+                            PROX_SUPERMARKET + WITHIN_350M_KINDERGARTEN +
+                            WITHIN_350M_CHILDCARE +
+                          WITHIN_1KM_PRISCH,
+                          data=train_data,
+                          approach="CV",
+                          kernel="gaussian",
+                          adaptive=TRUE,
+                          longlat=FALSE)
+```
+
+model calibration
+
+```{r}
+gwr_ad <- gwr.basic(formula = resale_price ~ floor_area_sqm + storey_order +
+                          remaining_lease_mths + PROX_CBD + 
+                          PROX_ELDERLYCARE + PROX_HAWKER + 
+                          PROX_GOOD_PRISCH + PROX_MALL + PROX_CHAS +
+                            PROX_SUPERMARKET + WITHIN_350M_KINDERGARTEN +
+                            WITHIN_350M_CHILDCARE +
+                          WITHIN_1KM_PRISCH,
+                          data=train_data,
+                          bw=20,
+                          kernel="gaussian",
+                          adaptive=TRUE,
+                          longlat=FALSE)
+```
+
+## Model output 
+
+```{r}
+gwr_ad
+```
+
+This is gonna take forever, but this is how you test your model. wait i think he was talking about something else....
+
+```{r}
+gwr_pred <- gwr.predict(formula = resale_price ~ floor_area_sqm + storey_order +
+                          remaining_lease_mths + PROX_CBD + 
+                          PROX_ELDERLYCARE + PROX_HAWKER + 
+                          PROX_GOOD_PRISCH + PROX_MALL + PROX_CHAS +
+                            PROX_SUPERMARKET + WITHIN_350M_KINDERGARTEN +
+                            WITHIN_350M_CHILDCARE +
+                          WITHIN_1KM_PRISCH,
+                          data=train_data,
+                        predictdata = test_data,
+                          bw=20,
+                          kernel="gaussian",
+                          adaptive=TRUE,
+                          longlat=FALSE)
+```
+
+saving predicted values
+
+```{r}
+gwr_pred_df <- as.data.frame(
+  gwr_pred$SDF$prediction
+) %>%
+  rename(gwr_pred = "gwr_pred$SDF$prediction")
+```
+
+## Predictive Modelling with RF method
+
+showed us the ranger package - it doesnt work for spatial data
+
+for this; if using ? you may have to calculate centroids
+
+```{r}
+coords <- st_coordinates(HDB_sample)
+coords_train <- st_coordinates(train_data)
+coords_test <- st_coordinates(test_data)
+
+train_data_nogeom <- train_data %>%
+  st_drop_geometry()
+```
+
+```{r}
+set.seed(1234)
+rf <- ranger(resale_price ~ floor_area_sqm + storey_order +
+                          remaining_lease_mths + PROX_CBD + 
+                          PROX_ELDERLYCARE + PROX_HAWKER + 
+                          PROX_GOOD_PRISCH + PROX_MALL + PROX_CHAS +
+                            PROX_SUPERMARKET + WITHIN_350M_KINDERGARTEN +
+                            WITHIN_350M_CHILDCARE +
+                          WITHIN_1KM_PRISCH,
+                        data = train_data_nogeom)
+```
+
+model output
+
+```{r}
+rf
+```
+
+Preparing test data
+
+```{r}
+test_data_nogeom <- cbind(
+  test_data, coords_test) %>%
+  st_drop_geometry()
+```
+
+Predicting and saving
+
+```{r}
+rf_pred <- predict(rf, data = test_data_nogeom)
+
+rf_pred_df <- as.data.frame(rf_pred$predictions) %>%
+  rename(rf_pred = "rf_pred$predictions")
+```
+
+## Predictive Modelling with Spatial ML 
+
+determining bandwidth (FLEW by this inclass so this isn't it at all)
+
+```{r}
+#| eval: false
+gwr_bw_train_ad <- bw.gwr(resale_price ~ floor_area_sqm + storey_order +
+                          remaining_lease_mths + PROX_CBD + 
+                          PROX_ELDERLYCARE + PROX_HAWKER + 
+                          PROX_GOOD_PRISCH + PROX_MALL + PROX_CHAS +
+                            PROX_SUPERMARKET + WITHIN_350M_KINDERGARTEN +
+                            WITHIN_350M_CHILDCARE +
+                          WITHIN_1KM_PRISCH,
+                          data=train_data,
+                          approach="CV",
+                          kernel="gaussian",
+                          adaptive=TRUE,
+                          longlat=FALSE)
+```
+
+calibrating the model
+
+```{r}
+grf_ad <- grf(formula = resale_price ~ floor_area_sqm + storey_order +
+                          remaining_lease_mths + PROX_CBD + 
+                          PROX_ELDERLYCARE + PROX_HAWKER + 
+                          PROX_GOOD_PRISCH + PROX_MALL + PROX_CHAS +
+                            PROX_SUPERMARKET + WITHIN_350M_KINDERGARTEN +
+                            WITHIN_350M_CHILDCARE +
+                          WITHIN_1KM_PRISCH,
+                          dframe=train_data_nogeom,
+                          bw=20,
+                          kernel="adaptive",
+                          coords=coords_train)
+```
+
+Test Data Prep (Already Done)
+
+Predictions and Saving
+
+```{r}
+grf_pred <- predict.grf(grf_ad, 
+                        test_data_nogeom,
+                        x.var.name="X",
+                        y.var.name="Y",
+                        local.w=1,
+                        global.w=0)
+
+grf_pred_df <- as.data.frame(grf_pred)
+```
+
+Model Comparison
+
+```{r}
+test_data_pred <- test_data %>%
+  dplyr::select(resale_price) %>%
+  cbind(gwr_pred_df) %>%
+  cbind(rf_pred_df) %>%
+  cbind(grf_pred_df)
+```
+
+Model Comparison Plots
+
+```{r}
+test_longer <- test_data_pred %>%
+  st_drop_geometry() %>%
+  pivot_longer(col = ends_with("pred"),
+               names_to = "model",
+               values_to = "predicted")
+```
+
+Renaming all the things to be nice
+
+```{r}
+rmse_results <- test_longer %>%
+  group_by(model) %>%
+  rmse(truth = resale_price,
+       estimate = predicted) %>%
+  rename(rmse = .estimate) %>%
+  dplyr::select(model, rmse)
+```
+
+```{r}
+ggplot(rmse_results,
+       aes(x = reorder(model, rmse),
+           y = rmse)) +
+  geom_bar(stat="identity",
+           fill = "blue",
+           color="black",
+           width=0.7)
+```
+
+```{r}
+test_longer <- test_longer %>%
+  left_join(rmse_results,
+            by = "model")
+
+ggplot(data = test_longer,
+       aes(x = predicted,
+           y= resale_price)) +
+  facet_wrap(~model) +
+  geom_point()
+# add RMSE to plot 
+```
+
+## Variable Importance 
+
+which variables are more important to predictions
+
+```{r}
+var_imp <- data.frame(
+  Variable = names(grf_ad$Global.Model$variable.importance),
+  Importance = grf_ad$Global.Model$variable.importance
+)
+```
+
+```{r}
+ggplot(var_imp,
+       aes(x=reorder(Variable, Importance),
+           y=Importance)) +
+  geom_bar(stat="identity",
+           fill="skyblue") +
+  coord_flip()
+```
